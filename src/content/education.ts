@@ -9,8 +9,8 @@ export const education: EducationEntry[] = [
     start: "2022",
     end: "2025",
     details: [
-      "3.3 GPA — 87% average in major coursework",
-      "Capstone: full-stack enterprise web app (Angular, TypeScript, Node.js, Web API, SQL, role-based access control, logging, deployment)",
+      "Capstone: as one of two developers on a 5-person team, built the backend for a client's full-stack e-store (Angular, TypeScript, Node.js, Web API, SQL) with role-based access control, logging and deployment.",
+      "Coursework (87% average): iOS (SwiftUI), OOP in Java, web programming, ASP.NET Core/C#, AWS, IT Process Management (ITIL v4), data structures in C, network security.",
     ],
   },
 ];
@@ -18,10 +18,10 @@ export const education: EducationEntry[] = [
 export const certifications: Certification[] = [
   {
     name: "Technical Support Fundamentals",
-    issuer: "Google Career Certificates",
+    issuer: "Google",
   },
   {
     name: "Foundations: Data, Data, Everywhere",
-    issuer: "Google Career Certificates",
+    issuer: "Google",
   },
 ];

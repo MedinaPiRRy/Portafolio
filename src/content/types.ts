@@ -1,12 +1,17 @@
+export type ProjectLink = {
+  label: string;
+  href: string;
+};
+
 export type Project = {
   slug: string;
   name: string;
+  kind: string;
+  year: string;
   problem: string;
-  build: string;
+  built: string[];
   stack: string[];
-  repoUrl: string;
-  liveUrl?: string;
-  featured?: boolean;
+  links: ProjectLink[];
 };
 
 export type ExperienceEntry = {

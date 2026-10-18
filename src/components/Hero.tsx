@@ -24,8 +24,12 @@ export function Hero() {
         {site.role}
       </p>
 
-      <p className="max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+      <p className="max-w-xl text-base leading-relaxed text-foreground sm:text-lg">
         {site.tagline}
+      </p>
+
+      <p className="max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+        {site.summary}
       </p>
 
       <div className="flex flex-wrap gap-3 pt-2">

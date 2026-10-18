@@ -2,64 +2,124 @@ import type { Project } from "./types";
 
 export const projects: Project[] = [
   {
-    slug: "erms",
-    name: "ERMS — Enterprise Resource Management System",
+    slug: "goateez",
+    name: "GOAT’eez",
+    kind: "E-commerce · team project",
+    year: "2026",
     problem:
-      "A capstone team (3 students) needed a role-based internal tool for managing employees, projects, and task assignments with proper access control and auditability.",
-    build:
-      "Built the MVC front end and a decoupled Web API on ASP.NET Core, with EF Core against SQL Server. Implemented Admin/Manager/Employee role-based access enforced at the controller level, CRUD across Employees/Projects/TaskItems with relational integrity, NLog logging across major actions, and 59 xUnit/Moq tests. Migrated the database to Azure SQL and deployed the app to Azure App Service.",
-    stack: [
-      "ASP.NET Core MVC",
-      "ASP.NET Core Web API",
-      "Entity Framework Core",
-      "SQL Server",
-      "Azure",
-      "xUnit",
-      "Moq",
-      "NLog",
+      "A team-built online store for custom shirts. I built everything except the visual front-end.",
+    built: [
+      "Angular migration, backend, database schema, APIs and a multi-zone Fabric.js shirt designer.",
+      "Cookie-based auth with refresh tokens, email verification, password reset, and role-based admin dashboards with activity logs.",
+      "Stripe checkout and webhooks, guest-to-account cart merging, and shareable saved designs.",
+      "Found and fixed Supabase row-level security (RLS) vulnerabilities.",
     ],
-    repoUrl: "https://github.com/MedinaPiRRy/ERMS-ASP.NET",
-    liveUrl: "https://ermsappcapstone.azurewebsites.net/",
-    featured: true,
+    stack: [
+      "Angular (SSR)",
+      "TypeScript",
+      "Express",
+      "Supabase (PostgreSQL)",
+      "Stripe",
+      "Fabric.js",
+      "Vitest",
+    ],
+    links: [{ label: "Live site", href: "https://goateez.ca/" }],
   },
   {
-    slug: "price-calculator",
-    name: "Pricing Calculator & Distance API",
+    slug: "finance-tracker",
+    name: "FinanceTrackerApp",
+    kind: "Desktop app",
+    year: "2026",
     problem:
-      "AMJ Campbell needed to standardize how internal teams calculated shipment pricing based on drivable distance to the nearest facility, replacing an inconsistent manual process.",
-    build:
-      "Built a Next.js app backed by a MariaDB database and an Express/Node.js API. Orders are geocoded and matched to the closest facility, then priced using drivable distance from the Google Maps Distance Matrix API. Added session-token authentication with expiring sessions, a unique-link sign-up flow, and a token-based forgot-password flow with hashed credentials.",
+      "A private personal and household finance tracker that runs entirely on your computer: no account, no cloud, no bank login.",
+    built: [
+      "Imports CSV/Excel bank statements with a row-by-row preview, and never records a transaction twice, even from overlapping or renamed files.",
+      "Budgets, goals, a debt payoff planner, a forecast with what-if scenarios, and recurring-charge detection.",
+      "Shipped 4 releases with Windows and macOS installers built by GitHub Actions.",
+      "40+ test files, including colour-contrast checks for every app theme.",
+    ],
+    stack: [
+      "Electron",
+      "React",
+      "TypeScript",
+      "SQLite",
+      "ECharts",
+      "Vitest",
+      "GitHub Actions",
+    ],
+    links: [
+      {
+        label: "Repo",
+        href: "https://github.com/MedinaPiRRy/FinanceTrackerApp",
+      },
+      {
+        label: "Download",
+        href: "https://github.com/MedinaPiRRy/FinanceTrackerApp/releases",
+      },
+    ],
+  },
+  {
+    slug: "scent-wardrobe",
+    name: "ScentWardrobe",
+    kind: "Desktop app",
+    year: "2026",
+    problem:
+      "Keeps track of the fragrances you have, want, wish to try or dislike, logs what you wear, and helps you discover layering combinations.",
+    built: [
+      "A layering engine that scores pairings 0–100 and adjusts to your ratings, plus recommendations from weather and activity.",
+      "Typed IPC contract between the renderer and main process, enforced at compile time.",
+      "SQLite with 8 versioned migrations; a test upgrades a library from every schema version without losing a row.",
+      "344 automated tests, including importers fed hostile input.",
+    ],
+    stack: [
+      "Electron",
+      "React",
+      "TypeScript",
+      "SQLite",
+      "Tailwind CSS",
+      "Vitest",
+    ],
+    links: [
+      {
+        label: "Repo",
+        href: "https://github.com/MedinaPiRRy/ScentWardrobe",
+      },
+      {
+        label: "Download",
+        href: "https://github.com/MedinaPiRRy/ScentWardrobe/releases",
+      },
+    ],
+  },
+  {
+    slug: "admin-dashboard",
+    name: "Admin-Dashboard",
+    kind: "Web app",
+    year: "2024–2026",
+    problem:
+      "A SaaS-style admin dashboard: an administrator signs in to see live business metrics and manage users, products and orders.",
+    built: [
+      "Credentials auth with NextAuth v5 (bcrypt, JWT sessions); every dashboard route is protected by middleware.",
+      "Server Actions for all create/update/delete, re-checking the session and validating input on the server.",
+      "Metrics computed from MongoDB aggregations: week-over-week change, a 7-day chart, monthly revenue and inventory reports. Nothing is hard-coded.",
+    ],
     stack: [
       "Next.js",
-      "Node.js",
-      "Express.js",
-      "MariaDB",
-      "Google Maps API",
+      "React",
+      "MongoDB",
+      "Mongoose",
+      "NextAuth",
+      "Recharts",
+      "Tailwind CSS",
     ],
-    repoUrl: "https://github.com/MedinaPiRRy/PriceCalculatorNextJS",
-    featured: true,
-  },
-  {
-    slug: "vertice-home-inspections",
-    name: "Vertice Home Inspections",
-    problem:
-      "A home inspection contractor needed a professional web presence to promote his services to clients.",
-    build:
-      "Designed and built a marketing site end-to-end and deployed it to production for a real client.",
-    stack: ["Next.js", "TypeScript"],
-    repoUrl: "https://github.com/MedinaPiRRy/VerticeHomeInspections",
-    liveUrl: "https://vertice-home-inspections.vercel.app",
-    featured: true,
-  },
-  {
-    slug: "gym-buddy-tracker",
-    name: "GymBuddy Tracker",
-    problem:
-      "Term project for a Hybrid Mobile Applications course: build a cross-platform app to help users track workout progress over time.",
-    build:
-      "Built a hybrid mobile app for logging and tracking gym progress, covering navigation, state, and UI for a mobile form factor.",
-    stack: ["TypeScript", "HTML", "SCSS"],
-    repoUrl: "https://github.com/MedinaPiRRy/GymBuddyTracker",
-    featured: true,
+    links: [
+      {
+        label: "Repo",
+        href: "https://github.com/MedinaPiRRy/Admin-Dashboard",
+      },
+      {
+        label: "Live demo",
+        href: "https://admin-dashboard-plum-tau.vercel.app",
+      },
+    ],
   },
 ];
