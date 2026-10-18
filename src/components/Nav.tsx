@@ -23,12 +23,12 @@ export function Nav() {
           <span className="text-accent">~/</span>
           {site.name.toLowerCase().replace(/\s+/g, "-")}
         </Link>
-        <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs sm:gap-x-5 sm:text-sm">
+        <ul className="flex flex-wrap items-center gap-x-4 font-mono text-xs sm:gap-x-5 sm:text-sm">
           {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-muted transition-colors hover:text-accent"
+                className="block py-2 text-muted transition-colors hover:text-accent"
               >
                 {link.label}
               </a>

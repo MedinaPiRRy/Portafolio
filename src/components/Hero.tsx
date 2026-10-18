@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import { hasResume } from "@/lib/resume";
 
 export function Hero() {
   return (
@@ -39,13 +40,15 @@ export function Hero() {
         >
           View projects
         </a>
-        <a
-          href={site.resumeUrl}
-          download
-          className="rounded-md border border-surface-border px-5 py-2.5 font-mono text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
-        >
-          Download resume
-        </a>
+        {hasResume && (
+          <a
+            href={site.resumeUrl}
+            download
+            className="rounded-md border border-surface-border px-5 py-2.5 font-mono text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+          >
+            Download resume
+          </a>
+        )}
       </div>
     </section>
   );
