@@ -1,5 +1,7 @@
 import Image from "next/image";
 import type { Project } from "@/content/types";
+import { BulletList } from "./BulletList";
+import { ChipList } from "./ChipList";
 
 type ProjectCardProps = {
   project: Project;
@@ -51,33 +53,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <p className="leading-relaxed text-muted">{project.problem}</p>
         </div>
 
-        <ul className="flex flex-col gap-2.5">
-          {project.built.map((item) => (
-            <li key={item} className="flex gap-3 text-sm leading-relaxed sm:text-base">
-              <span
-                className="select-none font-mono text-accent"
-                aria-hidden="true"
-              >
-                ▸
-              </span>
-              <span className="text-foreground/90">{item}</span>
-            </li>
-          ))}
-        </ul>
+        <BulletList items={project.built} />
 
-        <ul
-          aria-label={`${project.name} tech stack`}
-          className="flex flex-wrap gap-2"
-        >
-          {project.stack.map((tech) => (
-            <li
-              key={tech}
-              className="rounded border border-surface-border px-2 py-1 font-mono text-xs text-muted"
-            >
-              {tech}
-            </li>
-          ))}
-        </ul>
+        <ChipList items={project.stack} label={`${project.name} tech stack`} />
 
         {project.note && (
           <p className="border-l-2 border-accent-dim pl-3 text-sm leading-relaxed text-muted">
