@@ -1,3 +1,11 @@
+// Set NEXT_PUBLIC_SITE_URL once a custom domain exists; until then Vercel's production URL is used.
+function resolveSiteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL)
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  return "http://localhost:3000";
+}
+
 export const site = {
   name: "Daniel Medina Lopez",
   role: "Computer Systems Engineer",
@@ -10,7 +18,7 @@ export const site = {
   github: "https://github.com/MedinaPiRRy",
   linkedin: "https://linkedin.com/in/daniel-medina-lopez",
   resumeUrl: "/resume.pdf",
-  url: "https://danielmedina.dev",
+  url: resolveSiteUrl(),
   openTo:
     "Open to full-time full-stack / software developer roles in the GTA — hybrid or remote.",
 };

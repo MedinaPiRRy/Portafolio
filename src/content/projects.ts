@@ -6,8 +6,7 @@ export const projects: Project[] = [
     name: "GOAT’eez",
     kind: "E-commerce · team project",
     year: "2026",
-    problem:
-      "A team-built online store for custom shirts. I built everything except the visual front-end.",
+    problem: "A team-built online store for custom shirts, live at goateez.ca.",
     built: [
       "Angular migration, backend, database schema, APIs and a multi-zone Fabric.js shirt designer.",
       "Cookie-based auth with refresh tokens, email verification, password reset, and role-based admin dashboards with activity logs.",
@@ -24,6 +23,13 @@ export const projects: Project[] = [
       "Vitest",
     ],
     links: [{ label: "Live site", href: "https://goateez.ca/" }],
+    image: {
+      src: "/projects/goateez.png",
+      alt: "The GOAT’eez homepage: a “Wear Your G.O.A.T.” headline beside an illustrated goat in a baseball jersey, with Create Design and View the Gallery buttons.",
+      width: 1440,
+      height: 900,
+    },
+    note: "Team project: teammates built the visual front-end and I built everything else listed above. The code lives in a teammate’s private repository, so there is no repo link. Happy to walk through it in an interview.",
   },
   {
     slug: "finance-tracker",
@@ -57,6 +63,12 @@ export const projects: Project[] = [
         href: "https://github.com/MedinaPiRRy/FinanceTrackerApp/releases",
       },
     ],
+    image: {
+      src: "/projects/finance-tracker.png",
+      alt: "FinanceTracker household overview with sample data: combined income, spending, net and money in accounts, and a table splitting each category by person.",
+      width: 1344,
+      height: 841,
+    },
   },
   {
     slug: "scent-wardrobe",
@@ -89,6 +101,12 @@ export const projects: Project[] = [
         href: "https://github.com/MedinaPiRRy/ScentWardrobe/releases",
       },
     ],
+    image: {
+      src: "/projects/scent-wardrobe.png",
+      alt: "ScentWardrobe collection shelf in the dark theme: five fragrance bottles drawn to scale on a wooden shelf, with a drawer for decants and samples below.",
+      width: 1280,
+      height: 720,
+    },
   },
   {
     slug: "admin-dashboard",
@@ -119,6 +137,10 @@ export const projects: Project[] = [
       {
         label: "Live demo",
         href: "https://admin-dashboard-plum-tau.vercel.app",
+      },
+      {
+        label: "Demo login & tour",
+        href: "https://github.com/MedinaPiRRy/Admin-Dashboard/blob/main/INSTRUCTIONS.md",
       },
     ],
   },

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Project } from "@/content/types";
 
 type ProjectCardProps = {
@@ -27,6 +28,17 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </span>
         </span>
       </div>
+
+      {project.image && (
+        <Image
+          src={project.image.src}
+          alt={project.image.alt}
+          width={project.image.width}
+          height={project.image.height}
+          sizes="(min-width: 896px) 896px, 100vw"
+          className="aspect-[16/9] w-full border-b border-surface-border object-cover object-top"
+        />
+      )}
 
       <div className="flex flex-col gap-5 px-4 py-5 sm:px-6 sm:py-6">
         <div className="flex flex-col gap-2">
@@ -66,6 +78,12 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             </li>
           ))}
         </ul>
+
+        {project.note && (
+          <p className="border-l-2 border-accent-dim pl-3 text-sm leading-relaxed text-muted">
+            {project.note}
+          </p>
+        )}
 
         <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-surface-border pt-4 font-mono text-sm">
           {project.links.map((link) => (

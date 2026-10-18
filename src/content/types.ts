@@ -3,6 +3,13 @@ export type ProjectLink = {
   href: string;
 };
 
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -12,6 +19,8 @@ export type Project = {
   built: string[];
   stack: string[];
   links: ProjectLink[];
+  image?: ProjectImage;
+  note?: string;
 };
 
 export type ExperienceEntry = {
