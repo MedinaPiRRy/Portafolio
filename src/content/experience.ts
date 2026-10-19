@@ -27,15 +27,4 @@ export const experience: ExperienceEntry[] = [
     ],
     stack: ["ServiceNow"],
   },
-  {
-    role: "Line Cook & Server",
-    org: "Cineplex",
-    location: "Oakville, ON",
-    start: "Oct 2024",
-    end: "Present",
-    bullets: [
-      "Work the kitchen line and the floor, keeping orders accurate on 250+ order nights; trusted with closing inventory.",
-    ],
-    stack: [],
-  },
 ];
