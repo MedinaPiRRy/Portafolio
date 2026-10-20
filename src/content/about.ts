@@ -29,7 +29,8 @@ export const who: AboutBlock & { draft: boolean } = {
     {
       file: "portrait.jpg",
       aspect: "4/5",
-      alt: "Portrait of Daniel Medina Lopez",
+      alt: "Daniel in a white t-shirt holding a woven striped scarf while the wind blows his long hair",
+      ready: true,
     },
   ],
 };
@@ -46,7 +47,8 @@ export const colombia: AboutBlock = {
     {
       file: "colombia.jpg",
       aspect: "3/2",
-      alt: "Armenia, Quindío, Colombia",
+      alt: "Daniel smiling in a selfie, wearing a wide-brimmed woven hat and a striped poncho beside a bamboo bench in a green forest",
+      ready: true,
     },
   ],
 };
@@ -63,7 +65,20 @@ export const school: AboutBlock = {
     "I finished with an 87% average in my major coursework while working.",
     "Discipline and time management stopped being buzzwords for me. They were how I got through each week.",
   ],
-  photos: [],
+  photos: [
+    {
+      file: "school.jpg",
+      aspect: "4/5",
+      alt: "Daniel smiling and giving a thumbs up in front of a large window with a city view and holiday decorations",
+      ready: true,
+    },
+    {
+      file: "work.jpg",
+      aspect: "4/5",
+      alt: "Daniel sitting at a desk with a laptop and monitors, making hand gestures at the camera",
+      ready: true,
+    },
+  ],
 };
 
 export const animals: AboutBlock = {
@@ -76,8 +91,15 @@ export const animals: AboutBlock = {
   photos: [
     {
       file: "dogs.jpg",
-      aspect: "4/3",
-      alt: "Daniel's dogs",
+      aspect: "4/5",
+      alt: "Daniel lying on a tiled floor next to a large sleeping husky",
+      ready: true,
+    },
+    {
+      file: "dogs-2.jpg",
+      aspect: "4/5",
+      alt: "A smiling woman hugging a large black dog with its tongue out",
+      ready: true,
     },
     {
       file: "cats.jpg",
@@ -97,12 +119,14 @@ export const family: AboutBlock = {
     {
       file: "proposal.jpg",
       aspect: "4/5",
-      alt: "Daniel and his fiancée",
+      alt: "Black-and-white photo of the proposal: Daniel kneeling with an open ring box in front of his fiancée, who is covering her face, surrounded by balloons",
+      ready: true,
     },
     {
       file: "family.jpg",
-      aspect: "3/2",
-      alt: "Daniel with his family in Colombia",
+      aspect: "4/5",
+      alt: "Daniel with three family members standing in a blue and pink wooden doorway",
+      ready: true,
     },
   ],
 };

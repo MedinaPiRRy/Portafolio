@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { aboutSettings } from "@/content/about";
 import type { AboutPhoto, PhotoAspect } from "@/content/types";
+import { PhotoImage } from "./PhotoImage";
 
 const aspectClass: Record<PhotoAspect, string> = {
   "4/5": "aspect-[4/5]",
@@ -31,12 +31,10 @@ export function Photo({ photo, sizes }: PhotoProps) {
         className={`relative w-full overflow-hidden rounded-lg border border-surface-border bg-surface ${aspectClass[photo.aspect]}`}
       >
         {photo.ready ? (
-          <Image
+          <PhotoImage
             src={`/about/${photo.file}`}
             alt={photo.alt}
-            fill
             sizes={sizes}
-            className="object-cover"
           />
         ) : (
           <div
