@@ -1,13 +1,6 @@
 import Link from "next/link";
 import { site } from "@/content/site";
-
-const links = [
-  { href: "#projects", label: "projects" },
-  { href: "#experience", label: "experience" },
-  { href: "#skills", label: "skills" },
-  { href: "#education", label: "education" },
-  { href: "#contact", label: "contact" },
-];
+import { NavLinks } from "./NavLinks";
 
 export function Nav() {
   return (
@@ -17,24 +10,14 @@ export function Nav() {
         className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3 sm:px-6"
       >
         <Link
-          href="#top"
+          href="/#top"
+          prefetch={false}
           className="font-mono text-sm text-foreground hover:text-accent"
         >
           <span className="text-accent">~/</span>
           {site.name.toLowerCase().replace(/\s+/g, "-")}
         </Link>
-        <ul className="flex flex-wrap items-center gap-x-4 font-mono text-xs sm:gap-x-5 sm:text-sm">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="block py-2 text-muted transition-colors hover:text-accent"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <NavLinks />
       </nav>
     </header>
   );

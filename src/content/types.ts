@@ -52,3 +52,48 @@ export type Certification = {
   name: string;
   issuer: string;
 };
+
+export type PhotoAspect = "4/5" | "3/2" | "4/3" | "1/1";
+
+export type AboutPhoto = {
+  file: string;
+  aspect: PhotoAspect;
+  alt: string;
+  caption?: string;
+  ready?: boolean;
+};
+
+export type LiftResult = number | "none";
+
+export type Meet = {
+  slug: string;
+  name: string;
+  host: string;
+  date: string;
+  federation?: string;
+  equipment?: string;
+  division?: string;
+  weightClassKg?: number;
+  squat?: LiftResult;
+  bench?: LiftResult;
+  deadlift?: LiftResult;
+  total?: LiftResult;
+  dots?: number;
+  placing?: string;
+  story: string[];
+  instagramUrl?: string;
+  photo: AboutPhoto;
+};
+
+export type AboutVideo = {
+  id: string;
+  title: string;
+};
+
+export type AboutBlock = {
+  paragraphs: string[];
+  photos: AboutPhoto[];
+  bullets?: string[];
+  chips?: string[];
+  chipsLabel?: string;
+};
