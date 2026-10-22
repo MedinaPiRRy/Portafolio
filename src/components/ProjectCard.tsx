@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { hasCaseStudy } from "@/content/case-studies";
 import type { Project } from "@/content/types";
 import { BulletList } from "./BulletList";
 import { ChipList } from "./ChipList";
@@ -63,7 +65,17 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           </p>
         )}
 
-        <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-surface-border pt-4 font-mono text-sm">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-surface-border pt-4 font-mono text-sm">
+          {hasCaseStudy(project.slug) && (
+            <Link
+              href={`/projects/${project.slug}`}
+              prefetch={false}
+              aria-label={`Learn More about ${project.name}`}
+              className="inline-flex min-h-9 items-center gap-1 rounded-md border border-accent bg-accent px-4 font-medium text-background transition-colors hover:border-accent-dim hover:bg-accent-dim"
+            >
+              Learn More <span aria-hidden="true">→</span>
+            </Link>
+          )}
           {project.links.map((link) => (
             <a
               key={link.href}

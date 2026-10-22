@@ -90,6 +90,65 @@ export type AboutVideo = {
   title: string;
 };
 
+export type CodeExcerpt = {
+  path: string;
+  lines: string;
+  code: string;
+};
+
+export type DiagramBox = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  lines: string[];
+};
+
+export type DiagramArrow = {
+  points: [number, number][];
+  labels?: { x: number; y: number; text: string; anchor?: "start" | "middle" | "end" }[];
+};
+
+export type CaseBlock =
+  | { type: "p"; text: string }
+  | { type: "list"; items: string[] }
+  | { type: "h3"; text: string }
+  | { type: "callout"; label: string; text: string }
+  | {
+      type: "table";
+      caption: string;
+      headers: string[];
+      rows: string[][];
+    }
+  | { type: "code"; excerpt: CodeExcerpt; note?: string }
+  | {
+      type: "diagram";
+      title: string;
+      description: string;
+      width: number;
+      height: number;
+      boxes: DiagramBox[];
+      arrows: DiagramArrow[];
+    };
+
+export type CaseSection = {
+  id: string;
+  title: string;
+  blocks: CaseBlock[];
+};
+
+export type CaseStudy = {
+  slug: string;
+  summary: {
+    what: string;
+    why: string;
+    role: string;
+    outcome: string;
+  };
+  sourceNote: string;
+  sections: CaseSection[];
+};
+
 export type AboutBlock = {
   paragraphs: string[];
   photos: AboutPhoto[];
