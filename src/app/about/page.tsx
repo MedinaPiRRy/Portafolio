@@ -56,11 +56,6 @@ export default function AboutPage() {
         </header>
 
         <Section id="who-i-am" index="01" title="Who I am">
-          {who.draft && (
-            <p className="mb-6 inline-block rounded border border-accent-dim px-2 py-1 font-mono text-xs text-accent">
-              DRAFT: wording pending review
-            </p>
-          )}
           <AboutBlockView block={who} />
         </Section>
 

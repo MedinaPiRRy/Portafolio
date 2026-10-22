@@ -17,9 +17,25 @@ export function Hero() {
         />
       </p>
 
-      <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-        {site.name}
-      </h1>
+      <div className="flex flex-col gap-1">
+        <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+          {site.name}
+        </h1>
+        <p className="flex flex-wrap items-center gap-x-4 font-mono text-xs text-muted sm:text-sm">
+          <a
+            href={`mailto:${site.email}`}
+            className="inline-flex min-h-6 items-center transition-colors hover:text-accent"
+          >
+            {site.email}
+          </a>
+          <a
+            href={site.phoneHref}
+            className="inline-flex min-h-6 items-center transition-colors hover:text-accent"
+          >
+            {site.phone}
+          </a>
+        </p>
+      </div>
 
       <p className="font-mono text-base text-accent sm:text-lg">
         {site.role}

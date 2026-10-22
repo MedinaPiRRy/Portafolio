@@ -8,7 +8,7 @@ const rows = [
   {
     label: "phone",
     text: site.phone,
-    href: `tel:+1${site.phone.replace(/\D/g, "")}`,
+    href: site.phoneHref,
   },
   { label: "github", text: stripProtocol(site.github), href: site.github },
   {

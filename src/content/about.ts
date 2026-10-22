@@ -18,9 +18,7 @@ export const aboutHeader = {
   subtitle: "The person behind the projects.",
 };
 
-// DRAFT: wording below is a first pass for the owner's review.
-export const who: AboutBlock & { draft: boolean } = {
-  draft: true,
+export const who: AboutBlock = {
   paragraphs: [
     "I'm the extrovert in the room: social, always up for a conversation, and usually the one cracking the joke. I'm also a good listener, which turns out to matter a lot when your job is figuring out what someone actually needs.",
     "I'm a software developer, but I'd like to be remembered as a person first: curious about how systems work, and even more curious about the people who use them.",
