@@ -42,7 +42,7 @@ export const projects: Project[] = [
       "Imports CSV/Excel bank statements with a row-by-row preview, and never records a transaction twice, even from overlapping or renamed files.",
       "Budgets, goals, a debt payoff planner, a forecast with what-if scenarios, and recurring-charge detection.",
       "Shipped 4 releases with Windows and macOS installers built by GitHub Actions.",
-      "40+ test files, including colour-contrast checks for every app theme.",
+      "635 tests in 43 files, including colour-contrast checks for every app theme.",
     ],
     stack: [
       "Electron",
