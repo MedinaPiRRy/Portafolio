@@ -114,7 +114,7 @@ export const projects: Project[] = [
     kind: "Web app",
     year: "2024–2026",
     problem:
-      "A SaaS-style admin dashboard: an administrator signs in to see live business metrics and manage users, products and orders.",
+      "A SaaS-style admin dashboard: sign in to see live business metrics and manage users, products and orders.",
     built: [
       "Credentials auth with NextAuth v5 (bcrypt, JWT sessions); every dashboard route is protected by middleware.",
       "Server Actions for all create/update/delete, re-checking the session and validating input on the server.",
@@ -133,14 +133,6 @@ export const projects: Project[] = [
       {
         label: "Repo",
         href: "https://github.com/MedinaPiRRy/Admin-Dashboard",
-      },
-      {
-        label: "Live demo",
-        href: "https://admin-dashboard-plum-tau.vercel.app",
-      },
-      {
-        label: "Demo login & tour",
-        href: "https://github.com/MedinaPiRRy/Admin-Dashboard/blob/main/INSTRUCTIONS.md",
       },
     ],
   },

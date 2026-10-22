@@ -1,8 +1,10 @@
 import type { CaseStudy } from "../types";
+import { adminDashboard } from "./admin-dashboard";
 import { goateez } from "./goateez";
 
 const caseStudies: Record<string, CaseStudy> = {
   goateez,
+  "admin-dashboard": adminDashboard,
 };
 
 export const caseStudySlugs = Object.keys(caseStudies);
