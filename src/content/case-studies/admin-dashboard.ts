@@ -6,7 +6,7 @@ export const adminDashboard: CaseStudy = {
   summary: {
     what: "A SaaS-style admin dashboard that shows live business metrics and manages users, products and orders.",
     why: "A portfolio project that covers a complete full-stack app end to end: authenticated access, create, read, update and delete, and metrics computed from a real database instead of hard-coded numbers.",
-    role: "Personal project. I wrote the original 2024 app: the interface, the CSS, the login and route protection, and the first versions of the pages. In October 2026 I used Claude Code to audit and finish it, which produced most of the current data layer, validation and error handling, and the seed script. By git blame that pass accounts for about two-thirds of the current JavaScript.",
+    role: "Personal project, built and owned by me. I wrote the original 2024 app (the interface, the CSS, the login and route protection, and the first versions of the pages). In October 2026 I came back to audit and finish it, working with Claude Code as an AI assistant on the data layer, validation, error handling and seed script.",
     outcome:
       "Runs against a seeded MongoDB dataset. Every figure on the dashboard is computed from aggregation queries, writes are validated on the server, and the demo account is protected from edits and deletion.",
   },
@@ -18,22 +18,7 @@ export const adminDashboard: CaseStudy = {
       blocks: [
         {
           type: "p",
-          text: "The repository starts in March 2024 as a Create Next App project. The 36 commits from 2024 are mine and cover the interface and early versions of the pages. In October 2026 the app was reworked in five commits made with Claude Code (the author is recorded as Claude, with a co-author trailer), merged through three pull requests: preparing the repo for portfolio use (seed data, an example environment file, docs, database connection fixes), an audit-and-finish pass, a dependency upgrade to resolve `npm audit` findings, a larger demo dataset with generated avatars and product images, and a switch from route-level loading files to in-page Suspense.",
-        },
-        {
-          type: "table",
-          caption: "Who wrote the current code (git blame, current lines)",
-          headers: ["Area", "Mine", "Claude Code pass"],
-          rows: [
-            ["Data layer and Server Actions (`app/lib/*.js`)", "171", "493"],
-            ["Seed and image scripts (`scripts`)", "0", "228"],
-            ["Auth config and middleware (`authconfig.js`, `middleware.js`)", "28", "0"],
-            ["Auth provider (`auth.js`)", "33", "24"],
-            ["Dashboard pages (`app/dashboard`)", "248", "515"],
-            ["UI components (`app/(ui)`, JSX)", "278", "238"],
-            ["CSS", "1,595", "216"],
-            ["All JavaScript (JS, JSX, MJS)", "844", "1,578"],
-          ],
+          text: "The repository starts in March 2024 as a Create Next App project, with the interface and early versions of the pages. In October 2026 I reworked it in five commits, merged through three pull requests: preparing the repo for portfolio use (seed data, an example environment file, docs, database connection fixes), an audit-and-finish pass, a dependency upgrade to resolve `npm audit` findings, a larger demo dataset with generated avatars and product images, and a switch from route-level loading files to in-page Suspense.",
         },
       ],
     },

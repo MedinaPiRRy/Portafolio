@@ -134,6 +134,14 @@ export const projects: Project[] = [
         label: "Repo",
         href: "https://github.com/MedinaPiRRy/Admin-Dashboard",
       },
+      {
+        label: "Live demo",
+        href: "https://admin-dashboard-omega-pink-90.vercel.app",
+      },
+      {
+        label: "Demo login & tour",
+        href: "https://github.com/MedinaPiRRy/Admin-Dashboard/blob/main/INSTRUCTIONS.md",
+      },
     ],
   },
 ];
