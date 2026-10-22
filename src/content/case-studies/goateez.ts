@@ -129,7 +129,7 @@ export const goateez: CaseStudy = {
           excerpt: excerpts.webhookOrder,
           note: "Stripe signs the raw request bytes. If `express.json()` ran first, the body would already be parsed and every signature check would fail, so the webhook route sits above the JSON parser and uses `express.raw()`. The 25 MB JSON limit is left over from when designs travelled as base64.",
         },
-        { type: "h3", text: "How the API is organised" },
+        { type: "h3", text: "How the API is organized" },
         {
           type: "list",
           items: [
@@ -252,7 +252,7 @@ export const goateez: CaseStudy = {
         { type: "h3", text: "Refresh tokens are opaque, hashed and rotated" },
         {
           type: "p",
-          text: "A refresh token is 48 random bytes. Only its SHA-256 hash is stored, so a database leak yields nothing a client could present. It is deliberately not a JWT: being opaque and stored is what makes server-side revocation possible.",
+          text: "A refresh token is 48 random bytes. Only its SHA-256 hash is stored, so a database leak yields nothing a client could present. It is not a JWT on purpose: being opaque and stored is what makes server-side revocation possible.",
         },
         { type: "code", excerpt: excerpts.refreshToken },
         {
@@ -549,7 +549,7 @@ export const goateez: CaseStudy = {
         { type: "code", excerpt: excerpts.idempotencyTest },
         {
           type: "callout",
-          label: "Honest gaps",
+          label: "Known gaps",
           text: "The scripts are run by hand: there is no CI configuration in the repository. On the Angular side there are only the generated “should create” specs (9 `it` blocks across 8 files), and `designer.js` has no automated tests.",
         },
       ],
@@ -599,8 +599,8 @@ export const goateez: CaseStudy = {
       blocks: [
         {
           type: "table",
-          caption: "What each piece does and what it buys here",
-          headers: ["Piece", "Used for", "What it buys here"],
+          caption: "What each piece does and why it is used",
+          headers: ["Piece", "Used for", "Why it is used"],
           rows: [
             ["Angular 22 and `@angular/ssr`", "Storefront, routing, guards, prerendering", "Typed services and guards, prerendered public pages, hydration."],
             ["Express 5", "The API", "A small, explicit middleware pipeline where order matters, such as the webhook’s raw body."],

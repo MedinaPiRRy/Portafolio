@@ -79,7 +79,7 @@ export const financeTracker: CaseStudy = {
         { type: "code", excerpt: x.preload },
         {
           type: "p",
-          text: "The main process answers through `dispatch`, which always replies with `{ ok, data }` or `{ ok: false, error }`. It looks the method up with `Object.hasOwn`, so names that every object inherits, such as `constructor` or `toString`, are not callable. An error written for the person (an ordinary `Error`) is shown as is, but a `TypeError`, a SQLite error or anything that is not an `Error` is logged and replaced with a plain sentence, so internals never reach the screen.",
+          text: "The main process answers through `dispatch`, which always replies with `{ ok, data }` or `{ ok: false, error }`. It looks the method up with `Object.hasOwn`, so names that every object inherits, such as `constructor` or `toString`, are not callable. An error written for the user (an ordinary `Error`) is shown as is, but a `TypeError`, a SQLite error or anything that is not an `Error` is logged and replaced with a plain sentence, so internals never reach the screen.",
         },
         { type: "code", excerpt: x.dispatch },
       ],
@@ -90,12 +90,12 @@ export const financeTracker: CaseStudy = {
       blocks: [
         {
           type: "p",
-          text: "SQLite through `better-sqlite3`, in WAL mode with foreign keys on. The schema has 24 tables and four explicit indexes (one of them partial, covering only transactions waiting for review). The rules that keep the numbers trustworthy are simple and stated once.",
+          text: "SQLite through `better-sqlite3`, in WAL mode with foreign keys on. The schema has 24 tables and four explicit indexes (one of them partial, covering only transactions waiting for review). ",
         },
         {
           type: "list",
           items: [
-            "**Money is integer cents.** Amounts are stored and summed as integers, and dates are ISO `YYYY-MM-DD` text. The one decimal value near money is the exchange rate a person types for a foreign-currency cash tip; the converted amount is what counts, and it is stored in cents.",
+            "**Money is integer cents.** Amounts are stored and summed as integers, and dates are ISO `YYYY-MM-DD` text. The one decimal value near money is the exchange rate a user types for a foreign-currency cash tip; the converted amount is what counts, and it is stored in cents.",
             "**Balances are derived.** An account’s balance is its opening balance plus the sum of its transactions, so it can always be checked by hand. A credit card or loan is negative when money is owed. Investments are the exception: their value moves with the market, so it is entered by hand and kept as a history of valuations.",
             "**Five transaction kinds**: `income`, `expense`, `refund`, `transfer` and `unclassified`. Only the first three count in the dashboard. A transfer between two accounts is two linked rows that cancel out, so paying a credit card never looks like spending.",
             "**People are profiles.** A profile is either a person or the single `household` profile that owns shared accounts. Each person has their own categories.",
@@ -137,7 +137,7 @@ export const financeTracker: CaseStudy = {
       blocks: [
         {
           type: "p",
-          text: "A statement goes through parse, normalise, classify, categorize, duplicate check and preview before anything is saved. The commit step then re-validates every row, because the interface is never trusted.",
+          text: "A statement goes through parse, normalize, classify, categorize, duplicate check and preview before anything is saved. The commit step then re-validates every row, because the interface is never trusted.",
         },
         { type: "h3", text: "Reading the file" },
         {
@@ -160,11 +160,11 @@ export const financeTracker: CaseStudy = {
         { type: "code", excerpt: x.statementLimits },
         {
           type: "p",
-          text: "Rows then go through `parseStatement`. It recognises CIBC’s headerless card and chequing exports and any file with Date, Description and Amount, or Debit and Credit, columns. For anything else the person says once which column is which, and the layout is remembered for that account. Dates such as 03/04/2026 are resolved from the whole column (a part above 12 settles the order); when it is genuinely ambiguous the app assumes month first and warns. Amounts such as `(12.00)`, `$1,234.50` and `-12` are parsed to whole cents, and impossible dates like 30 February are refused.",
+          text: "Rows then go through `parseStatement`. It recognizes CIBC’s headerless card and chequing exports and any file with Date, Description and Amount, or Debit and Credit, columns. For anything else the user says once which column is which, and the layout is remembered for that account. Dates such as 03/04/2026 are resolved from the whole column (a part above 12 settles the order); when it is ambiguous the app assumes month first and warns. Amounts such as `(12.00)`, `$1,234.50` and `-12` are parsed to whole cents, and impossible dates like 30 February are refused.",
         },
         {
           type: "p",
-          text: "The app also suggests which account a file belongs to, using the strongest evidence first: the identical file imported before (recognised by its SHA-256 hash even if renamed), the same column layout, a file name that matches an account, a card-style export when there is exactly one card, and finally the account used last. When two accounts match a file name equally, it asks instead of guessing.",
+          text: "The app also suggests which account a file belongs to, using the strongest evidence first: the identical file imported before (recognized by its SHA-256 hash even if renamed), the same column layout, a file name that matches an account, a card-style export when there is exactly one card, and finally the account used last. When two accounts match a file name equally, it asks instead of guessing.",
         },
         { type: "h3", text: "Classifying a line" },
         {
@@ -175,31 +175,31 @@ export const financeTracker: CaseStudy = {
         { type: "h3", text: "Never recording a transaction twice" },
         {
           type: "p",
-          text: "Duplicates are handled in layers. The preview marks a line as already in the app when the account holds a row with the same date and amount, consuming one existing row per staged line so that two identical coffees stay two rows. A second identical line inside the same file is held back until the person confirms it is real. A row with the same amount a day or two away and a similar name is only hinted at, since the bank’s posting date can differ from the purchase date.",
+          text: "Duplicates are handled in layers. The preview marks a line as already in the app when the account holds a row with the same date and amount, consuming one existing row per staged line so that two identical coffees stay two rows. A second identical line inside the same file is held back until the user confirms it is real. A row with the same amount a day or two away and a similar name is only hinted at, since the bank’s posting date can differ from the purchase date.",
         },
         { type: "code", excerpt: x.duplicateMatch },
         {
           type: "p",
-          text: "At commit, every row gets a fingerprint made from the profile, account, date, amount and cleaned merchant name, plus an occurrence number. The database’s unique constraint on the fingerprint then makes a repeated import a no-op. Importing the same file into a different account is refused unless the person confirms, because it would record every transaction twice. The whole commit runs in one transaction, so a file that fails halfway saves nothing.",
+          text: "At commit, every row gets a fingerprint made from the profile, account, date, amount and cleaned merchant name, plus an occurrence number. The database’s unique constraint on the fingerprint then makes a repeated import a no-op. Importing the same file into a different account is refused unless the user confirms, because it would record every transaction twice. The whole commit runs in one transaction, so a file that fails halfway saves nothing.",
         },
         { type: "code", excerpt: x.fingerprint },
       ],
     },
     {
       id: "review",
-      title: "The review queue: ask instead of guess",
+      title: "The review queue",
       blocks: [
         {
           type: "p",
-          text: "An e-transfer might be rent, a reimbursement, a gift or money from a partner, and the statement does not say. Those rows are stored as `unclassified` with a reason, and they are left out of income and spending until the person decides. The queue is split into tabs (Possible income, Money in, Money out, Transfers and investments) and grouped by source, which is the cleaned bank description and, for an e-transfer, the other person’s name. One decision can clear every waiting row from that source.",
+          text: "An e-transfer might be rent, a reimbursement, a gift or money from a partner, and the statement does not say. Those rows are stored as `unclassified` with a reason, and they are left out of income and spending until the user decides. The queue is split into tabs (Possible income, Money in, Money out, Transfers and investments) and grouped by source, which is the cleaned bank description and, for an e-transfer, the other person’s name. One decision can clear every waiting row from that source.",
         },
         {
           type: "list",
           items: [
-            "**“Always do this” is opt-in.** Nothing is remembered unless the person ticks the box. The rule is stored per profile and per direction (money in and money out are separate), is applied to everything already waiting and to future imports, and can be forgotten in Settings.",
-            "**Old items are set aside, not pushed.** Anything waiting for more than 90 days (a setting with choices of 30, 90, 180 or 365) moves to an Older tab. The badge and banners count recent items only, and the statistics pages show a notice instead.",
+            "**“Always do this” is opt-in.** Nothing is remembered unless the user ticks the box. The rule is stored per profile and per direction (money in and money out are separate), is applied to everything already waiting and to future imports, and can be forgotten in Settings.",
+            "**Old items are set aside.** Anything waiting for more than 90 days (a setting with choices of 30, 90, 180 or 365) moves to an Older tab. The badge and banners count recent items only, and the statistics pages show a notice instead.",
             "**Decisions cannot flip the meaning of money.** Income must be money in, an expense must be money out, and a category has to belong to the same person and match the kind. The checks run in the main process, not only in the interface.",
-            "**Money between two people is its own decision** (“between us”). It becomes a transfer with a counterparty, so it is never income or spending for either person, and the name is remembered so the next one is recognised.",
+            "**Money between two people is its own decision** (“between us”). It becomes a transfer with a counterparty, so it is never income or spending for either person, and the name is remembered so the next one is recognized.",
           ],
         },
         { type: "code", excerpt: x.reviewSigns },
@@ -211,7 +211,7 @@ export const financeTracker: CaseStudy = {
       blocks: [
         {
           type: "p",
-          text: "Categorization is rules that run on the person’s own machine, in a fixed order of priority. The lowest number wins, and among equals the longest, most specific pattern wins.",
+          text: "Categorization is rules that run on the user’s own machine, in a fixed order of priority. The lowest number wins, and among equals the longest, most specific pattern wins.",
         },
         {
           type: "table",
@@ -219,15 +219,15 @@ export const financeTracker: CaseStudy = {
           headers: ["Source", "Priority", "Notes"],
           rows: [
             ["Rules by amount", "Overrides the rest", "“At gas stations, up to $30 is snacks, more is gas.” Matches whole words in the cleaned merchant name and only looks at money going out."],
-            ["Rules the person created or corrected", "10", "Their own word beats anything the app inferred."],
+            ["Rules the user created or corrected", "10", "Their own word beats anything the app inferred."],
             ["Learned rules", "20", "Rules the app saved from earlier categorizations."],
             ["The person’s history", "60", "The most common category for a merchant, only if it covers at least 60% of that merchant’s rows."],
-            ["Built-in keywords", "Last", "Seven tags (dining, groceries, transport, subscriptions, health, shopping, fees) matched against Canadian merchants and mapped to the person’s own category names."],
+            ["Built-in keywords", "Last", "Seven tags (dining, groceries, transport, subscriptions, health, shopping, fees) matched against Canadian merchants and mapped to the user’s own category names."],
           ],
         },
         {
           type: "p",
-          text: "Subcategories allow one level (`category.parent_id`). Everything that adds spending up (dashboard, budgets, forecast, goals and household groups) rolls a subcategory into its main category, unless the subcategory has a budget of its own, in which case it counts there. The built-in keywords only ever choose main categories; a subcategory is chosen by the person or by a rule.",
+          text: "Subcategories allow one level (`category.parent_id`). Everything that adds spending up (dashboard, budgets, forecast, goals and household groups) rolls a subcategory into its main category, unless the subcategory has a budget of its own, in which case it counts there. The built-in keywords only ever choose main categories; a subcategory is chosen by the user or by a rule.",
         },
         {
           type: "p",
@@ -241,7 +241,7 @@ export const financeTracker: CaseStudy = {
       blocks: [
         {
           type: "p",
-          text: "`detectRecurring` finds subscriptions, rent, utilities and pay in a person’s own transactions. It is pure: the same transactions always give the same answer. A group of payments to one merchant counts as regular when all of these hold:",
+          text: "`detectRecurring` finds subscriptions, rent, utilities and pay in a user’s own transactions. It is pure: the same transactions always give the same answer. A group of payments to one merchant counts as regular when all of these hold:",
         },
         {
           type: "list",
@@ -281,12 +281,12 @@ export const financeTracker: CaseStudy = {
         { type: "code", excerpt: x.forecastCases },
         {
           type: "p",
-          text: "The debt step is shared with the payoff planner, so the two screens cannot disagree. The planner supports three strategies: highest interest first (avalanche), smallest balance first (snowball) and minimum payments only. Interest is charged monthly at the annual rate divided by 12 on the balance carried into the month, and payments are made after interest. When the person has not entered terms, it assumes a 19.99% rate on cards, a minimum of the larger of $25 and 3% for cards, and a three-year schedule for loans, and it suggests about 60% of what is left over each month, rounded down to $5 steps. It stops at 600 months and says so if the payments barely cover the interest.",
+          text: "The debt step is shared with the payoff planner, so the two screens cannot disagree. The planner supports three strategies: highest interest first (avalanche), smallest balance first (snowball) and minimum payments only. Interest is charged monthly at the annual rate divided by 12 on the balance carried into the month, and payments are made after interest. When the user has not entered terms, it assumes a 19.99% rate on cards, a minimum of the larger of $25 and 3% for cards, and a three-year schedule for loans, and it suggests about 60% of what is left over each month, rounded down to $5 steps. It stops at 600 months and says so if the payments barely cover the interest.",
         },
         { type: "code", excerpt: x.stepDebts },
         {
           type: "p",
-          text: "Goal ideas follow the same caution. They are worked out from the person’s own numbers (clearing cards first, a one-month and then a three-month emergency fund, loans, growing an investment account), each with its reason, and the monthly amount is capped at 60% of what is left over.",
+          text: "Goal ideas follow the same caution. They are worked out from the user’s own numbers (clearing cards first, a one-month and then a three-month emergency fund, loans, growing an investment account), each with its reason, and the monthly amount is capped at 60% of what is left over.",
         },
       ],
     },
@@ -300,7 +300,7 @@ export const financeTracker: CaseStudy = {
         },
         {
           type: "p",
-          text: "Each person names their categories differently, so the household view combines them through category groups. “Fast Food & Dining” and “Dining & Takeout” both fall in the group “Dining”. Groups are guessed from the category name by a list of patterns, and a person can override any of them.",
+          text: "Each person names their categories differently, so the household view combines them through category groups. “Fast Food & Dining” and “Dining & Takeout” both fall in the group “Dining”. Groups are guessed from the category name by a list of patterns, and a user can override any of them.",
         },
         {
           type: "p",
@@ -315,7 +315,7 @@ export const financeTracker: CaseStudy = {
       blocks: [
         {
           type: "p",
-          text: "One page shows what was paid and what was received in taxes and in interest, by month and year, with the net. `classifyCost` decides what one transaction counts as, in a fixed order. A mark on the payment itself wins over everything, including “leave this out”. An account the person removed from the page is skipped. Then the category’s setting applies (or a guess from its name until it is set), and last an expense whose own words say “interest” counts.",
+          text: "One page shows what was paid and what was received in taxes and in interest, by month and year, with the net. `classifyCost` decides what one transaction counts as, in a fixed order. A mark on the payment itself wins over everything, including “leave this out”. An account the user removed from the page is skipped. Then the category’s setting applies (or a guess from its name until it is set), and last an expense whose own words say “interest” counts.",
         },
         { type: "code", excerpt: x.costOrder },
         {
@@ -335,7 +335,7 @@ export const financeTracker: CaseStudy = {
         { type: "code", excerpt: x.autoBackup },
         {
           type: "p",
-          text: "Restoring is deliberately cautious. A backup is chosen by name from the listed files, never by path, and the name must match a fixed pattern. The file is opened read-only and must pass SQLite’s `integrity_check`, look like this app’s database, and not come from a newer version. The current data is saved first as a `before-restore` copy, so a restore can itself be undone. The backup is copied beside the database and renamed into place in one step, after the old journal files are removed so they can never be applied to the restored file.",
+          text: "Restoring has several safeguards. A backup is chosen by name from the listed files, never by path, and the name must match a fixed pattern. The file is opened read-only and must pass SQLite’s `integrity_check`, look like this app’s database, and not come from a newer version. The current data is saved first as a `before-restore` copy, so a restore can itself be undone. The backup is copied beside the database and renamed into place in one step, after the old journal files are removed so they can never be applied to the restored file.",
         },
         { type: "code", excerpt: x.backupProblem },
         { type: "code", excerpt: x.restoreDatabase },
@@ -355,7 +355,7 @@ export const financeTracker: CaseStudy = {
       blocks: [
         {
           type: "p",
-          text: "The privacy promise (no account, no cloud, no bank login, no analytics) is enforced by how the app is built, not just stated. There is no network code in the source, the renderer cannot reach anything except one narrow door, and every input from a file or from the interface is limited and validated.",
+          text: "The privacy promise (no account, no cloud, no bank login, no analytics) holds because of how the app is built. There is no network code in the source, the renderer cannot reach anything except one narrow door, and every input from a file or from the interface is limited and validated.",
         },
         {
           type: "table",
@@ -410,7 +410,7 @@ export const financeTracker: CaseStudy = {
         { type: "code", excerpt: x.themeInit },
         {
           type: "p",
-          text: "Accessibility is checked by tests, not left to taste. Each style must define every colour token, and its text, status colours, focus ring and chart series have to pass contrast and colour-vision checks. Another test fails if a page or component writes a colour by hand instead of using a token, so a later change cannot quietly bypass the checks.",
+          text: "Accessibility is covered by tests. Each style must define every colour token, and its text, status colours, focus ring and chart series have to pass contrast and colour-vision checks. Another test fails if a page or component writes a colour by hand instead of using a token, so a later change cannot quietly bypass the checks.",
         },
         { type: "code", excerpt: x.contrastTests },
         { type: "code", excerpt: x.noHandColours },
@@ -418,9 +418,9 @@ export const financeTracker: CaseStudy = {
           type: "list",
           items: [
             "Navigation is a labelled `nav`, with `aria-current` on the open page and labelled badges for counts.",
-            "Charts are `role=\"img\"` with a label. Pagination is a labelled `nav` and announces the page politely.",
+            "Charts are `role=\"img\"` with a label. Pagination is a labelled `nav` and announces the current page to screen readers.",
             "Focus outlines are styled for inputs, buttons, table sort buttons and linked figures, and the animation on a flashed row is switched off under `prefers-reduced-motion`.",
-            "A top-level error boundary shows a calm message (with the details folded away) instead of a blank window, and clears itself when the person navigates elsewhere.",
+            "A top-level error boundary shows a calm message (with the details folded away) instead of a blank window, and clears itself when the user navigates elsewhere.",
           ],
         },
       ],
@@ -431,7 +431,7 @@ export const financeTracker: CaseStudy = {
       blocks: [
         {
           type: "p",
-          text: "There are 635 tests in 43 files, run with Vitest 5, and I confirmed the count by running the suite. They use plain Node and in-memory or temporary SQLite databases, so no Electron is needed. Many of them are written to find ways the app could be wrong rather than to confirm it works.",
+          text: "There are 635 tests in 43 files, run with Vitest 5, and I confirmed the count by running the suite. They use plain Node and in-memory or temporary SQLite databases, so no Electron is needed. Many of them are written to break the app, not to confirm it works.",
         },
         {
           type: "table",
@@ -439,7 +439,7 @@ export const financeTracker: CaseStudy = {
           headers: ["Area", "What is checked"],
           rows: [
             ["Parsing", "Statement formats, thousands separators, brackets, dollar signs and trailing minus, leap days and year boundaries, a zero amount or empty line never becoming a transaction, files that are not statements."],
-            ["Importing", "A 3,800-line statement previews and commits every line once, and importing it again adds nothing. Two or three genuinely identical purchases are all kept. An overlapping statement adds only the new lines. One invalid row commits nothing. Undo removes exactly one import's rows."],
+            ["Importing", "A 3,800-line statement previews and commits every line once, and importing it again adds nothing. Two or three identical purchases are all kept. An overlapping statement adds only the new lines. One invalid row commits nothing. Undo removes exactly one import's rows."],
             ["Hostile files", "A zip bomb, a damaged zip, a single cell far down and to the right, an enormous unterminated quoted field, thousands of columns, and more rows than the limit."],
             ["The review queue", "Sign rules for each decision, remembered sources, and that rules apply only in their own direction."],
             ["Households", "Shared accounts, money between people, household budgets, and a sample-data consistency check in all three setups."],
@@ -474,7 +474,7 @@ export const financeTracker: CaseStudy = {
         { type: "code", excerpt: x.ciWorkflow },
         {
           type: "p",
-          text: "Pushing a tag that starts with `v` runs the release workflow on Windows, macOS and Ubuntu. Each runner installs dependencies, runs the tests and builds its installer with electron-builder, then attaches it to a GitHub release with generated notes. Each of the four releases (1.0.0, 1.1.0, 1.2.0, 1.3.0) has five files: a Windows installer, the wipe tool, macOS images for Apple Silicon and Intel, and a Linux AppImage. The eight most recent workflow runs on GitHub (CI and releases) all succeeded.",
+          text: "Pushing a tag that starts with `v` runs the release workflow on Windows, macOS and Ubuntu. Each runner installs dependencies, runs the tests and builds its installer with electron-builder, then attaches it to a GitHub release with generated notes. Each of the four releases (1.0.0, 1.1.0, 1.2.0, 1.3.0) has five files: a Windows installer, the wipe tool, macOS images for Apple Silicon and Intel, and a Linux AppImage. Every release workflow run so far has succeeded.",
         },
         {
           type: "p",
@@ -488,15 +488,15 @@ export const financeTracker: CaseStudy = {
       blocks: [
         {
           type: "table",
-          caption: "What each piece does and what it buys here",
-          headers: ["Piece", "Used for", "What it buys here"],
+          caption: "What each piece does and why it is used",
+          headers: ["Piece", "Used for", "Why it is used"],
           rows: [
             ["Electron 44", "Desktop shell", "A real desktop app with a local file database and no server."],
             ["TypeScript 7", "Everything", "One language end to end, and handler types shared with the interface."],
             ["React 19, Vite 7, electron-vite", "Interface and build", "One build for the main process, the preload script and the renderer, with hot reload."],
             ["better-sqlite3", "The database", "Synchronous, fast, transactional SQLite in one file that is easy to back up."],
             ["ECharts 6", "Charts", "Canvas charts that are clickable and can follow the theme tokens."],
-            ["PapaParse", "CSV", "Robust parsing of quoted and malformed CSV."],
+            ["PapaParse", "CSV", "Reliable parsing of quoted and malformed CSV."],
             ["fflate and fast-xml-parser", "Excel", "A small read-only reader that unpacks only the parts it needs."],
             ["Vitest 5", "Tests", "Fast tests of the pure core and the database layer."],
             ["electron-builder", "Installers", "NSIS for Windows, DMG for macOS, AppImage for Linux."],
@@ -515,12 +515,12 @@ export const financeTracker: CaseStudy = {
           headers: ["Decision", "Benefit", "Cost"],
           rows: [
             ["Integer cents everywhere", "No rounding drift; balances can be checked by hand", "Display and parsing need care"],
-            ["Balances derived from transactions", "A balance can never disagree with its transactions", "A mismatch with the bank is the person’s to track down, so the app offers tools to match it"],
-            ["Ask in a review queue instead of guessing", "Ambiguous money is never silently misclassified", "More decisions for the person, softened by “always do this” rules"],
-            ["Rules, not AI", "Deterministic, explainable, and nothing leaves the machine", "Less clever than a trained model; the person corrects what it misses"],
-            ["Pure `core` with no I/O", "Fast, exact unit tests of the maths", "Data has to be gathered and passed in by the database layer"],
+            ["Balances derived from transactions", "A balance can never disagree with its transactions", "A mismatch with the bank is the user’s to track down, so the app offers tools to match it"],
+            ["Ask in a review queue instead of guessing", "Ambiguous money is never silently misclassified", "More decisions for the user, softened by “always do this” rules"],
+            ["Rules, not AI", "Deterministic, explainable, and nothing leaves the machine", "Less clever than a trained model; the user corrects what it misses"],
+            ["Pure `core` with no I/O", "Fast, exact unit tests of the math", "Data has to be gathered and passed in by the database layer"],
             ["One bridge function with a handler list", "A tiny attack surface and one place to test", "Arguments are type-checked in the interface but arrive untyped at runtime, so every handler has to validate its input"],
-            ["Fingerprint plus preview-level duplicate checks", "Overlapping or renamed statements never double count", "A genuinely repeated line has to be confirmed"],
+            ["Fingerprint plus preview-level duplicate checks", "Overlapping or renamed statements never double count", "A repeated line has to be confirmed"],
             ["Restore from a listed backup through a temporary file", "A failed or hostile restore never touches live data", "You can only restore backups the app has listed"],
             ["Unsigned installers", "No signing certificate to buy or manage", "Operating-system warnings on first launch"],
           ],

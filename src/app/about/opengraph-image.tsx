@@ -2,7 +2,7 @@ import { aboutHeader, aboutMeta } from "@/content/about";
 import { site } from "@/content/site";
 import { ogContentType, ogSize, renderOgCard } from "@/lib/og-card";
 
-export const alt = `${aboutMeta.title} — ${site.name}`;
+export const alt = `${aboutMeta.title} | ${site.name}`;
 export const size = ogSize;
 export const contentType = ogContentType;
 

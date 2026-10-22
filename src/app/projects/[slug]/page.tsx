@@ -23,7 +23,7 @@ export async function generateMetadata(
   if (!project || !study) return {};
 
   const title = `${project.name}: case study`;
-  const fullTitle = `${title} — ${site.name}`;
+  const fullTitle = `${title} | ${site.name}`;
   const description = study.summary.what;
 
   return {

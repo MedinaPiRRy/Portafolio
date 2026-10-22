@@ -16,7 +16,7 @@ import {
 } from "@/content/about";
 import { site } from "@/content/site";
 
-const pageTitle = `${aboutMeta.title} — ${site.name}`;
+const pageTitle = `${aboutMeta.title} | ${site.name}`;
 
 export const metadata: Metadata = {
   title: aboutMeta.title,

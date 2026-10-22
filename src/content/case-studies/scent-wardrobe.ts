@@ -148,7 +148,7 @@ export const scentWardrobe: CaseStudy = {
             "Wears added for past days are diary entries, marked with a `backfilled` flag, and leave bottle levels alone. Regression tests cover editing both diary entries and real wears.",
             "A wear whose day is over and that has no longevity figure triggers a follow-up prompt asking how long it lasted, which can be completed or dismissed.",
             "A per-fragrance default spray count can be set (a check limits it to 1 to 60), and a fragrance you wore but do not own can be added as a marked “foreign” entry.",
-            "The calendar groups wears by local day and shows usage as a heat map. The date maths is tested across month boundaries and daylight-saving changes.",
+            "The calendar groups wears by local day and shows usage as a heat map. The date math is tested across month boundaries and daylight-saving changes.",
             "Stats cover the most worn and neglected fragrances, wears and millilitres used per month, bottles running low and cost per wear. A bottle can carry a market price with the date and source it was checked.",
           ],
         },
@@ -247,7 +247,7 @@ export const scentWardrobe: CaseStudy = {
         },
         {
           type: "p",
-          text: "Pages are loaded in a special window. It is rendered but invisible, because a fully hidden window does not trigger the page’s lazy loading, and it is revealed only if the site asks for a human check or a login.",
+          text: "Pages are loaded in a dedicated window. It is rendered but invisible, because a fully hidden window does not trigger the page’s lazy loading, and it is revealed only if the site asks for a human check or a login.",
         },
         { type: "code", excerpt: x.scrapeWindow },
         {
@@ -366,7 +366,7 @@ export const scentWardrobe: CaseStudy = {
             ["Importers", "CSV and JSON-lines parsing, broken files, binary files with a `.csv` name, huge or pathological pasted text, and non-Fragrantica links."],
             ["Security helpers", "Host look-alikes, picture addresses, stored file names, CSV formula cells and the IPC sender check."],
             ["Performance", "A library of 400 fragrances and 6,000 wears must list, search, summarise and export quickly (limits are generous to avoid flakiness)."],
-            ["Date maths", "Month grids, leap years, six-week months, and no repeated or skipped day across daylight-saving changes."],
+            ["Date math", "Month grids, leap years, six-week months, and no repeated or skipped day across daylight-saving changes."],
           ],
         },
         {
@@ -405,8 +405,8 @@ export const scentWardrobe: CaseStudy = {
       blocks: [
         {
           type: "table",
-          caption: "What each piece does and what it buys here",
-          headers: ["Piece", "Used for", "What it buys here"],
+          caption: "What each piece does and why it is used",
+          headers: ["Piece", "Used for", "Why it is used"],
           rows: [
             ["Electron 44", "Desktop shell", "A real desktop app with a local file database and no server, on Windows and macOS."],
             ["TypeScript", "Everything", "One shared contract between main and renderer, and engines that are tested as plain code."],

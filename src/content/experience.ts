@@ -21,7 +21,7 @@ export const experience: ExperienceEntry[] = [
     start: "Jan 2024",
     end: "Aug 2025",
     bullets: [
-      "Handled ~500 incident tickets per 4-month term in ServiceNow, documenting symptoms and steps tried for clean handoffs.",
+      "Handled about 500 incident tickets per 4-month term in ServiceNow, documenting symptoms and steps tried for clean handoffs.",
       "Triaged and escalated issues to the correct group among 50+ specialized support teams.",
       "Resolved first-level software, hardware and connectivity issues for city staff, and repaired and deployed hardware from faulty peripherals to new servers for a city location.",
     ],

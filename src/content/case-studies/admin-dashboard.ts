@@ -85,7 +85,7 @@ export const adminDashboard: CaseStudy = {
         },
         {
           type: "callout",
-          label: "Orders are denormalised on purpose",
+          label: "Orders are denormalized on purpose",
           text: "An order stores the customer’s name and the product’s title as plain text. The code comment gives the reason: the transactions pages stay simple and the history survives user and product deletes.",
         },
         {
@@ -278,8 +278,8 @@ export const adminDashboard: CaseStudy = {
       blocks: [
         {
           type: "table",
-          caption: "What each piece does and what it buys here",
-          headers: ["Piece", "Used for", "What it buys here"],
+          caption: "What each piece does and why it is used",
+          headers: ["Piece", "Used for", "Why it is used"],
           rows: [
             ["Next.js 15 (App Router)", "Routing, rendering, Server Actions, middleware", "Server-rendered pages that read data directly and forms that work without a separate API."],
             ["React 19", "Components, `useFormStatus`", "Pending states on forms and delete buttons."],
@@ -305,7 +305,7 @@ export const adminDashboard: CaseStudy = {
             ["Server Components query the database directly", "Less code and no client-side fetching", "Pages are tied to the data layer"],
             ["Server Actions for writes", "Plain forms with validation on the server", "Feedback travels through redirects"],
             ["List state in the URL", "Shareable views and a working back button", "Each change is a navigation"],
-            ["Denormalised orders", "Simple transaction pages that survive deletes", "Names can drift from the user or product record"],
+            ["Denormalized orders", "Simple transaction pages that survive deletes", "Names can drift from the user or product record"],
             ["Auth config split in two files", "Middleware stays light", "Two files to keep in step"],
             ["Messages by code, not text", "Nothing from the URL reaches the page", "Each message needs an entry in the table"],
             ["Deterministic seed with relative dates", "The same demo every run", "Re-seed to keep the recent-days widgets fresh"],

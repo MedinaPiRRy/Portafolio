@@ -36,7 +36,7 @@ export const who: AboutBlock = {
 export const colombia: AboutBlock = {
   paragraphs: [
     "I grew up in Armenia, Quindío, Colombia, and I lived my whole life under my mother's roof until I was 16, when I moved to Canada in 2018.",
-    "Suddenly I was running my own life, and almost everything about it was hard: missing my family, the financial pressure, never having enough time. I won't pretend otherwise.",
+    "Suddenly I was running my own life, and almost everything about it was hard: missing my family, the financial pressure, never having enough time.",
     "With time and dedication it got easier. Not all at once, but little by little: a routine here, a small win there, until the things that scared me became things I could handle. I'm proud of that, and I carry it into everything else.",
   ],
   chips: ["Armenia, Quindío, Colombia", "Moved to Canada in 2018"],
@@ -61,7 +61,7 @@ export const school: AboutBlock = {
   bullets: [
     "Classes, work and deadlines all had to fit into the same week, so I learned to prioritize early and stick to it.",
     "I finished with an 87% average in my major coursework while working.",
-    "Discipline and time management stopped being buzzwords for me. They were how I got through each week.",
+    "For me, discipline and time management were not buzzwords. They were how I got through each week.",
   ],
   photos: [
     {
@@ -82,7 +82,7 @@ export const school: AboutBlock = {
 export const animals: AboutBlock = {
   paragraphs: [
     "I love animals, and I've been lucky to share my life with a lot of them: 8 dogs and 5 cats so far. Four dogs and two cats are still with me, and they definitely run the house.",
-    "The ones who are no longer here were family, too. Each of them left something behind, and I think about them often.",
+    "The ones who are no longer here were family, too, and I think about them often.",
   ],
   chips: ["8 dogs", "5 cats", "4 dogs and 2 cats still with me"],
   chipsLabel: "Pets",
@@ -111,7 +111,7 @@ export const animals: AboutBlock = {
 export const family: AboutBlock = {
   paragraphs: [
     "Family is the reason leaving was so hard, and the reason I go back whenever I can. I visit my mom and my close family in Colombia as often as life allows.",
-    "I'm engaged to my fiancée, and we've been together for seven years. She's been there through school, work and everything in between.",
+    "I'm engaged, and we've been together for seven years. She's been there through school, work and everything in between.",
   ],
   photos: [
     {
@@ -172,7 +172,7 @@ export const meets: Meet[] = [
     placing: "DQ",
     story: [
       "My first meet didn't go the way I planned. I made my squat and my deadlift, but I missed all three bench attempts, which means no total and an official DQ.",
-      "It wasn't the debut I wanted. But I treated it as information instead of a verdict: what happened on the platform, what I would change, and what I needed to work on before the next one.",
+      "It wasn't the debut I wanted, but I used it to work out what happened on the platform, what I would change and what I needed to work on before the next one.",
     ],
     instagramUrl: instagramProfile,
     photo: {
