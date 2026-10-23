@@ -208,7 +208,7 @@ export const meets: Meet[] = [
   },
   {
     slug: "defenders-of-faith",
-    name: "Defenders of Faith",
+    name: "Defenders of the Faith",
     host: "Free Bird",
     date: "2025-12-06",
     federation: "WRPF Canada",
@@ -228,7 +228,7 @@ export const meets: Meet[] = [
     photo: {
       file: "defenders.jpg",
       aspect: "4/5",
-      alt: "Daniel competing at Defenders of Faith",
+      alt: "Daniel competing at Defenders of the Faith",
     },
   },
 ];
