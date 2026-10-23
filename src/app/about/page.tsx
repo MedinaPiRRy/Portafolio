@@ -80,7 +80,7 @@ export default function AboutPage() {
         <p className="mx-auto max-w-4xl px-4 pb-16 font-mono text-sm sm:px-6">
           <Link
             href="/#contact"
-            className="inline-flex min-h-6 items-center text-accent underline-offset-4 hover:underline"
+            className="inline-flex min-h-6 items-center gap-1.5 text-accent underline-offset-4 hover:underline"
           >
             Like what you see? Let&apos;s talk <span aria-hidden="true">→</span>
           </Link>

@@ -112,7 +112,7 @@ export const projects: Project[] = [
     slug: "admin-dashboard",
     name: "Admin-Dashboard",
     kind: "Web app",
-    year: "2024–2026",
+    year: "2024 – 2026",
     problem:
       "A SaaS-style admin dashboard: sign in to see live business metrics and manage users, products and orders.",
     built: [

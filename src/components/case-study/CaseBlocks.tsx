@@ -147,11 +147,11 @@ function DataTable({ block }: { block: Extract<CaseBlock, { type: "table" }> }) 
           </thead>
           <tbody>
             {block.rows.map((row) => (
-              <tr key={row[0]} className="align-top">
+              <tr key={row[0]} className="align-top [&:last-child>td]:border-b-0">
                 {row.map((cell, i) => (
                   <td
                     key={i}
-                    className={`border-b border-surface-border px-3 py-2.5 leading-relaxed last:border-b-0 ${
+                    className={`border-b border-surface-border px-3 py-2.5 leading-relaxed ${
                       i === 0
                         ? "font-mono text-xs text-foreground"
                         : "text-foreground/90"

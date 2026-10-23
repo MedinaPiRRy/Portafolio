@@ -83,7 +83,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               target="_blank"
               rel="noreferrer"
               aria-label={`${project.name}: ${link.label} (opens in a new tab)`}
-              className="text-accent underline-offset-4 hover:underline"
+              className="inline-flex min-h-6 items-center gap-1.5 text-accent underline-offset-4 hover:underline"
             >
               {link.label} <span aria-hidden="true">↗</span>
             </a>

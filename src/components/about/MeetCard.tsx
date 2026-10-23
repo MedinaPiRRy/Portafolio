@@ -175,7 +175,7 @@ export function MeetCard({ meet, previous }: MeetCardProps) {
                   ? "Instagram post"
                   : "photos on Instagram"
               } (opens in a new tab)`}
-              className="inline-flex min-h-6 items-center self-start font-mono text-sm text-accent underline-offset-4 hover:underline"
+              className="inline-flex min-h-6 items-center gap-1.5 self-start font-mono text-sm text-accent underline-offset-4 hover:underline"
             >
               {meet.instagramUrl.includes("/p/")
                 ? "Instagram post"

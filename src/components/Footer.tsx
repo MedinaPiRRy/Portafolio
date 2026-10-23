@@ -8,7 +8,7 @@ export function Footer() {
           Built by {site.name} · Next.js + Tailwind ·{" "}
           <a
             href={site.github}
-            className="hover:text-accent"
+            className="inline-flex min-h-6 items-center hover:text-accent"
             target="_blank"
             rel="noreferrer"
           >

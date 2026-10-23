@@ -25,7 +25,7 @@ export function NavLinks() {
               href={link.href}
               prefetch={false}
               aria-current={active ? "page" : undefined}
-              className={`block py-2 transition-colors hover:text-accent ${
+              className={`block py-1 transition-colors sm:py-2 hover:text-accent ${
                 active
                   ? "text-accent underline decoration-2 underline-offset-8"
                   : "text-muted"

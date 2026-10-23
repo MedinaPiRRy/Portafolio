@@ -59,7 +59,7 @@ export function YouTubeFacade({ id, title }: YouTubeFacadeProps) {
           target="_blank"
           rel="noreferrer"
           aria-label={`${title}: watch on YouTube (opens in a new tab)`}
-          className="inline-flex min-h-6 items-center self-start font-mono text-xs text-accent underline-offset-4 hover:underline"
+          className="inline-flex min-h-6 items-center gap-1.5 self-start font-mono text-xs text-accent underline-offset-4 hover:underline"
         >
           Watch on YouTube <span aria-hidden="true">↗</span>
         </a>

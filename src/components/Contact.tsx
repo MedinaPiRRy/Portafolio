@@ -23,7 +23,7 @@ export function Contact() {
   return (
     <Section id="contact" index="05" title="Contact">
       <div className="flex flex-col gap-8">
-        <p className="max-w-2xl text-lg leading-relaxed text-foreground">
+        <p className="max-w-2xl text-balance text-lg leading-relaxed text-foreground">
           {site.openTo}
         </p>
 
@@ -43,7 +43,7 @@ export function Contact() {
                     {...(row.href.startsWith("http")
                       ? { target: "_blank", rel: "noreferrer" }
                       : {})}
-                    className="text-accent underline-offset-4 hover:underline"
+                    className="inline-flex min-h-6 items-center text-accent underline-offset-4 hover:underline"
                   >
                     {row.text}
                   </a>
