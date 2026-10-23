@@ -67,3 +67,255 @@ body {
 .animate-blink {
   animation: blink 1.1s step-end infinite;
 }
+
+/* ------------------------------------------------------------------ */
+/* Motion system                                                      */
+/* Reveal states use `animation` on opacity / translate / scale /     */
+/* clip-path so they never fight hover transitions on `transform`.    */
+/* Content is visible by default: elements are only hidden (.pre) by  */
+/* the MotionRoot client component, and only when they start below    */
+/* the fold. No JS, or reduced motion, means nothing is ever hidden.  */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-hover: 250ms;
+  --dur-reveal: 500ms;
+  --dur-draw: 700ms;
+  --dist-sm: 16px;
+  --dist-md: 28px;
+  --dist-lg: 48px;
+  --stagger: 60ms;
+  --accent-bright: #b7f5b7;
+}
+
+@media (max-width: 639px) {
+  :root {
+    --dist-md: 20px;
+    --dist-lg: 24px;
+  }
+}
+
+/* Off-screen slides must never create horizontal scroll. `clip` (unlike
+   `hidden`) does not create a scroll container, so sticky still works. */
+body {
+  overflow-x: clip;
+}
+
+/* ---- reveal variants (start state values) ---- */
+[data-reveal],
+[data-reveal-child] {
+  --rx: 0px;
+  --ry: var(--dist-md);
+  --rs: 1;
+  --ro: 0;
+  --rc: inset(0 0 0 0);
+  --rdur: var(--dur-reveal);
+  --rease: var(--ease-out);
+  --rorigin: 50% 50%;
+}
+
+[data-reveal="fade"],
+[data-reveal-child="fade"] {
+  --ry: 0px;
+}
+[data-reveal="scale"],
+[data-reveal-child="scale"] {
+  --ry: var(--dist-sm);
+  --rs: 0.92;
+}
+[data-reveal="left"],
+[data-reveal-child="left"] {
+  --rx: calc(var(--dist-lg) * -1);
+  --ry: 0px;
+}
+[data-reveal="right"],
+[data-reveal-child="right"] {
+  --rx: var(--dist-lg);
+  --ry: 0px;
+}
+[data-reveal="clip"],
+[data-reveal-child="clip"] {
+  --ry: 0px;
+  --rs: 1.05;
+  --rc: inset(0 0 100% 0);
+  --rdur: var(--dur-draw);
+}
+[data-reveal="draw"],
+[data-reveal-child="draw"] {
+  --rx: 0px;
+  --ry: 0px;
+  --rs: 0 1;
+  --ro: 1;
+  --rdur: var(--dur-draw);
+  --rorigin: 0% 50%;
+}
+[data-reveal="pop"],
+[data-reveal-child="pop"] {
+  --ry: 0px;
+  --rs: 0;
+  --rdur: 400ms;
+  --rease: var(--ease-pop);
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: var(--ro);
+    translate: var(--rx) var(--ry);
+    scale: var(--rs);
+    clip-path: var(--rc);
+  }
+}
+
+/* hidden (below the fold, not yet seen) */
+.pre[data-reveal],
+.pre[data-reveal-group] > [data-reveal-child] {
+  opacity: var(--ro);
+  translate: var(--rx) var(--ry);
+  scale: var(--rs);
+  clip-path: var(--rc);
+  transform-origin: var(--rorigin);
+}
+
+/* revealed: play once */
+.is-in[data-reveal],
+.is-in[data-reveal-group] > [data-reveal-child] {
+  transform-origin: var(--rorigin);
+  animation: reveal-in var(--rdur) var(--rease) calc(min(var(--i, 0), 8) * var(--stagger)) backwards;
+}
+.is-in.instant[data-reveal],
+.is-in.instant[data-reveal-group] > [data-reveal-child] {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pre[data-reveal],
+  .pre[data-reveal-group] > [data-reveal-child] {
+    opacity: 1 !important;
+    translate: none !important;
+    scale: none !important;
+    clip-path: none !important;
+  }
+  .hero-rise,
+  .hero-fade {
+    animation: none !important;
+  }
+}
+
+/* ---- hero load-in (CSS only; transform-only for text so LCP is unaffected) ---- */
+@keyframes hero-rise {
+  from {
+    translate: 0 var(--dist-sm);
+  }
+}
+@keyframes hero-fade-rise {
+  from {
+    opacity: 0;
+    translate: 0 var(--dist-sm);
+  }
+}
+.hero-rise {
+  animation: hero-rise 600ms var(--ease-out) calc(var(--i, 0) * 70ms) backwards;
+}
+.hero-fade {
+  animation: hero-fade-rise 600ms var(--ease-out) calc(var(--i, 0) * 70ms) backwards;
+}
+
+/* ---- scroll-drawn timeline line ---- */
+[data-timeline-line] {
+  transform-origin: top;
+  transform: scaleY(var(--p, 1));
+}
+
+/* ---- link underline sweep (scaleX from the left) ---- */
+.sweep {
+  position: relative;
+}
+.sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--sweep-bottom, 0.1rem);
+  height: var(--sweep-h, 1px);
+  background: var(--sweep-color, var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-hover) var(--ease-out);
+  pointer-events: none;
+}
+.sweep[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+@media (hover: hover) {
+  .sweep:hover::after {
+    transform: scaleX(1);
+  }
+}
+.sweep:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* ---- fill sweep for buttons ---- */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    color var(--dur-hover) var(--ease-out),
+    transform 150ms var(--ease-out);
+}
+.btn-sweep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--fill, var(--accent-bright));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms var(--ease-out);
+}
+.btn-sweep:active {
+  transform: translateY(1px) scale(0.98);
+}
+.btn-sweep:focus-visible::before {
+  transform: scaleX(1);
+}
+.btn-sweep:focus-visible {
+  color: var(--fill-text, var(--background));
+}
+@media (hover: hover) {
+  .btn-sweep:hover::before {
+    transform: scaleX(1);
+  }
+  .btn-sweep:hover {
+    color: var(--fill-text, var(--background));
+  }
+}
+
+/* ---- tech chips ---- */
+.chip {
+  transition:
+    transform var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out),
+    background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out);
+}
+@media (hover: hover) {
+  .chip:hover,
+  .chip:focus-within {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+  }
+}
+@media (hover: none) {
+  .chip:active {
+    transform: translateY(-1px);
+    border-color: var(--accent);
+    background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+  }
+}

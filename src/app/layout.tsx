@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Inter } from "next/font/google";
+import { MotionRoot } from "@/components/motion/MotionRoot";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -79,6 +80,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
+        <MotionRoot />
         {children}
       </body>
     </html>

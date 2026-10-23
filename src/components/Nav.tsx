@@ -12,7 +12,7 @@ export function Nav() {
         <Link
           href="/#top"
           prefetch={false}
-          className="inline-flex min-h-6 shrink-0 items-center whitespace-nowrap font-mono text-sm text-foreground hover:text-accent"
+          className="sweep inline-flex min-h-6 shrink-0 items-center whitespace-nowrap font-mono text-sm text-foreground transition-colors [--sweep-bottom:0.05rem] hover:text-accent"
         >
           <span className="text-accent">~/</span>
           {site.name.toLowerCase().replace(/\s+/g, "-")}

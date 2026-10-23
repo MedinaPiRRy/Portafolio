@@ -1,0 +1,125 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useLayoutEffect } from "react";
+
+const SELECTOR = "[data-reveal], [data-reveal-group]";
+
+/**
+ * One shared IntersectionObserver for every scroll reveal on the site.
+ *
+ * - Content is visible by default (server HTML, no JS, crawlers, reduced motion).
+ * - On mount, only elements that start below the fold get the `pre` class that
+ *   hides them. Anything already on screen is never hidden, so there is no
+ *   flash and no effect on LCP.
+ * - Each element is revealed once, then unobserved.
+ * - Jumping to a hash (nav click, /#contact load) reveals whatever lands in the
+ *   viewport instantly, so you never arrive at hidden or half-animated content.
+ * - A single passive scroll listener drives the `--p` progress of timelines.
+ */
+export function MotionRoot() {
+  const pathname = usePathname();
+
+  useLayoutEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    let jumpUntil = 0;
+
+    const reveal = (el: Element, instant: boolean) => {
+      el.classList.remove("pre");
+      el.classList.add("is-in");
+      if (instant) el.classList.add("instant");
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        const instant = performance.now() < jumpUntil;
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          reveal(entry.target, instant);
+          io.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.01 },
+    );
+
+    const vh = window.innerHeight;
+    document.querySelectorAll(SELECTOR).forEach((el) => {
+      if (el.classList.contains("is-in")) return;
+      if (el.classList.contains("pre")) {
+        io.observe(el);
+        return;
+      }
+      // Starts on screen (or above it): leave it visible, never hide it.
+      if (el.getBoundingClientRect().top < vh) return;
+      el.classList.add("pre");
+      io.observe(el);
+    });
+
+    // Reveal everything currently in the viewport without animating.
+    const sweep = () => {
+      const h = window.innerHeight;
+      document.querySelectorAll(SELECTOR).forEach((el) => {
+        if (!el.classList.contains("pre")) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < h && r.bottom > 0) {
+          reveal(el, true);
+          io.unobserve(el);
+        }
+      });
+    };
+
+    const startJump = () => {
+      jumpUntil = performance.now() + 1200;
+      for (const t of [0, 60, 200, 450, 900]) window.setTimeout(sweep, t);
+    };
+
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      if (!a) return;
+      const href = a.getAttribute("href") ?? "";
+      if (href.includes("#")) startJump();
+    };
+    const onHash = () => startJump();
+
+    document.addEventListener("click", onClick);
+    window.addEventListener("hashchange", onHash);
+    if (window.location.hash) startJump();
+
+    // Scroll-drawn timelines.
+    const timelines = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-timeline]"),
+    );
+    let ticking = false;
+    const updateTimelines = () => {
+      ticking = false;
+      const h = window.innerHeight;
+      for (const tl of timelines) {
+        const line = tl.querySelector<HTMLElement>("[data-timeline-line]");
+        if (!line) continue;
+        const r = tl.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, (h * 0.65 - r.top) / r.height));
+        line.style.setProperty("--p", p.toFixed(3));
+      }
+    };
+    const onScroll = () => {
+      if (ticking || timelines.length === 0) return;
+      ticking = true;
+      window.requestAnimationFrame(updateTimelines);
+    };
+    updateTimelines();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    return () => {
+      io.disconnect();
+      document.removeEventListener("click", onClick);
+      window.removeEventListener("hashchange", onHash);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [pathname]);
+
+  return null;
+}
