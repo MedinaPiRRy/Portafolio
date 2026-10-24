@@ -526,3 +526,38 @@ body {
     transform: scale(1.04);
   }
 }
+
+/* ---- back to top ---- */
+.back-to-top {
+  transition:
+    opacity var(--dur-hover) var(--ease-out),
+    translate var(--dur-hover) var(--ease-out),
+    visibility 0s linear 0s,
+    color var(--dur-hover) var(--ease-out),
+    transform 150ms var(--ease-out);
+}
+.back-to-top[data-visible="false"] {
+  opacity: 0;
+  translate: 0 16px;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-hover) var(--ease-out),
+    translate var(--dur-hover) var(--ease-out),
+    visibility 0s linear var(--dur-hover);
+}
+.back-to-top-ring {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--ring, 0));
+}
+.back-to-top-arrow {
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+@media (hover: hover) {
+  .back-to-top:hover .back-to-top-arrow {
+    transform: translateY(-2px);
+  }
+}
+.back-to-top:focus-visible .back-to-top-arrow {
+  transform: translateY(-2px);
+}

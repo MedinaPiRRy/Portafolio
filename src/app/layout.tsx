@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Inter } from "next/font/google";
+import { BackToTop } from "@/components/BackToTop";
 import { MotionRoot } from "@/components/motion/MotionRoot";
 import { site } from "@/content/site";
 import "./globals.css";
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <MotionRoot />
         {children}
+        <BackToTop />
       </body>
     </html>
   );
