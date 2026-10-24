@@ -229,9 +229,25 @@ body {
   from {
     clip-path: inset(0 100% 0 0);
   }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
+/* "whoami" is 6 monospace characters: 6 steps of 160ms reveal one character at a
+   time, and the cursor (transform only) walks along with the typed text. */
 .hero-typed {
-  animation: hero-type 560ms steps(8, end) 450ms backwards;
+  display: inline-block;
+  animation: hero-type 960ms steps(6, end) 500ms backwards;
+}
+@keyframes hero-cursor-move {
+  from {
+    translate: -6ch 0;
+  }
+}
+.hero-cursor {
+  animation:
+    hero-cursor-move 960ms steps(6, end) 500ms backwards,
+    blink 1.1s step-end infinite;
 }
 
 /* ---- scroll progress bar under the nav ---- */
