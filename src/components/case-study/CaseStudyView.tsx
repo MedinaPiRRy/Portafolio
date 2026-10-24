@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { CaseStudy, Project } from "@/content/types";
 import { ChipList } from "../ChipList";
@@ -26,21 +27,31 @@ export function CaseStudyView({ project, study }: CaseStudyViewProps) {
         <Link
           href="/#projects"
           prefetch={false}
-          className="inline-flex min-h-6 items-center self-start font-mono text-sm text-muted transition-colors hover:text-accent"
+          className="sweep hero-rise inline-flex min-h-6 items-center self-start font-mono text-sm text-muted transition-colors [--sweep-bottom:0.15rem] hover:text-accent"
+          style={{ "--i": 0 } as CSSProperties}
         >
           <span aria-hidden="true">←&nbsp;</span>All projects
         </Link>
-        <p className="font-mono text-sm text-muted">
+        <p
+          className="hero-rise font-mono text-sm text-muted"
+          style={{ "--i": 1 } as CSSProperties}
+        >
           <span className="text-accent">daniel@gta</span>
           <span>:~$</span>
           <span className="ml-2 break-all text-foreground">
             cat projects/{project.slug}.md
           </span>
         </p>
-        <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+        <h1
+          className="hero-rise text-4xl font-semibold tracking-tight text-foreground sm:text-5xl"
+          style={{ "--i": 2 } as CSSProperties}
+        >
           {project.name}
         </h1>
-        <p className="font-mono text-base text-accent sm:text-lg">
+        <p
+          className="hero-rise font-mono text-base text-accent sm:text-lg"
+          style={{ "--i": 3 } as CSSProperties}
+        >
           {project.kind}
           <span aria-hidden="true"> · </span>
           <span className="sr-only">, </span>
@@ -50,11 +61,16 @@ export function CaseStudyView({ project, study }: CaseStudyViewProps) {
 
       <Section id="at-a-glance" index="//" title="At a glance" compact>
         <div className="flex flex-col gap-6">
-          <dl className="flex flex-col gap-px overflow-hidden rounded-lg border border-surface-border bg-surface-border">
-            {glance.map(([label, text]) => (
+          <dl
+            className="flex flex-col gap-px overflow-hidden rounded-lg border border-surface-border bg-surface-border"
+            data-reveal-group
+          >
+            {glance.map(([label, text], n) => (
               <div
                 key={label}
-                className="grid gap-1 bg-surface p-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-6 sm:p-5"
+                className="row-sweep grid gap-1 bg-surface p-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-6 sm:p-5"
+                data-reveal-child="up"
+                style={{ "--i": n } as CSSProperties}
               >
                 <dt className="font-mono text-xs text-accent">{label}</dt>
                 <dd className="leading-relaxed text-foreground/90">
@@ -74,7 +90,7 @@ export function CaseStudyView({ project, study }: CaseStudyViewProps) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${project.name}: ${link.label} (opens in a new tab)`}
-                className="inline-flex min-h-6 items-center text-accent underline-offset-4 hover:underline"
+                className="btn-sweep -mx-2 inline-flex min-h-6 items-center rounded px-2 text-accent [--fill-text:var(--accent)] [--fill:color-mix(in_srgb,var(--accent)_16%,transparent)]"
               >
                 {link.label} <span aria-hidden="true">&nbsp;↗</span>
               </a>
@@ -92,13 +108,14 @@ export function CaseStudyView({ project, study }: CaseStudyViewProps) {
           <nav
             aria-label="Deep dive contents"
             className="rounded-lg border border-surface-border bg-surface p-4"
+            data-reveal="fade"
           >
             <ol className="grid gap-x-8 gap-y-0.5 sm:grid-cols-2">
               {study.sections.map((s, i) => (
                 <li key={s.id}>
                   <a
                     href={`#${s.id}`}
-                    className="inline-flex min-h-6 items-center gap-2 font-mono text-sm text-muted transition-colors hover:text-accent"
+                    className="sweep inline-flex min-h-6 items-center gap-2 font-mono text-sm text-muted transition-colors [--sweep-bottom:0.15rem] hover:text-accent"
                   >
                     <span className="text-accent" aria-hidden="true">
                       {pad(i + 1)}

@@ -19,6 +19,11 @@ export function Nav() {
         </Link>
         <NavLinks />
       </nav>
+      <div
+        aria-hidden="true"
+        data-scroll-progress
+        className="scroll-progress absolute inset-x-0 -bottom-px h-0.5 bg-accent"
+      />
     </header>
   );
 }

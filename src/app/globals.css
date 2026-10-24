@@ -198,7 +198,8 @@ body {
     clip-path: none !important;
   }
   .hero-rise,
-  .hero-fade {
+  .hero-fade,
+  .hero-typed {
     animation: none !important;
   }
 }
@@ -220,6 +221,24 @@ body {
 }
 .hero-fade {
   animation: hero-fade-rise 600ms var(--ease-out) calc(var(--i, 0) * 70ms) backwards;
+}
+
+/* typing effect: the text is always in the DOM; a clip reveals it left to right in
+   steps (paint only, no layout), then the cursor keeps blinking */
+@keyframes hero-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+.hero-typed {
+  animation: hero-type 560ms steps(8, end) 450ms backwards;
+}
+
+/* ---- scroll progress bar under the nav ---- */
+.scroll-progress {
+  transform-origin: left;
+  transform: scaleX(var(--sp, 0));
+  pointer-events: none;
 }
 
 /* ---- scroll-drawn timeline line ---- */
@@ -245,7 +264,7 @@ body {
   transition: transform var(--dur-hover) var(--ease-out);
   pointer-events: none;
 }
-.sweep[aria-current="page"]::after {
+.sweep[aria-current]::after {
   transform: scaleX(1);
 }
 @media (hover: hover) {

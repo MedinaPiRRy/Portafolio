@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { CaseBlock } from "@/content/types";
 import { renderInline } from "./inline";
 
@@ -6,7 +7,10 @@ const focusInset = "focus-visible:outline-offset-[-3px]!";
 function Code({ block }: { block: Extract<CaseBlock, { type: "code" }> }) {
   const { excerpt, note } = block;
   return (
-    <figure className="overflow-hidden rounded-lg border border-surface-border bg-surface">
+    <figure
+      className="overflow-hidden rounded-lg border border-surface-border bg-surface"
+      data-reveal="fade"
+    >
       <figcaption className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-surface-border px-4 py-2 font-mono text-xs text-muted">
         <span className="break-all">{excerpt.path}</span>
         <span>lines {excerpt.lines}</span>
@@ -33,7 +37,7 @@ function Diagram({ block }: { block: Extract<CaseBlock, { type: "diagram" }> }) 
   const lineHeight = 16;
 
   return (
-    <figure className="flex flex-col gap-3">
+    <figure className="flex flex-col gap-3" data-reveal="scale">
       <figcaption className="font-mono text-xs text-accent">
         {block.title}
       </figcaption>
@@ -121,7 +125,7 @@ function Diagram({ block }: { block: Extract<CaseBlock, { type: "diagram" }> }) 
 
 function DataTable({ block }: { block: Extract<CaseBlock, { type: "table" }> }) {
   return (
-    <figure className="flex flex-col gap-3">
+    <figure className="flex flex-col gap-3" data-reveal="up">
       <figcaption className="font-mono text-xs text-accent">
         {block.caption}
       </figcaption>
@@ -179,6 +183,7 @@ export function CaseBlocks({ blocks }: { blocks: CaseBlock[] }) {
               <p
                 key={i}
                 className="max-w-3xl leading-relaxed text-foreground/90"
+                data-reveal="up"
               >
                 {renderInline(block.text)}
               </p>
@@ -188,17 +193,25 @@ export function CaseBlocks({ blocks }: { blocks: CaseBlock[] }) {
               <h3
                 key={i}
                 className="mt-2 font-mono text-sm font-medium text-accent"
+                data-reveal="left"
+                style={{ "--rx": "calc(var(--dist-sm) * -1)" } as CSSProperties}
               >
                 {block.text}
               </h3>
             );
           case "list":
             return (
-              <ul key={i} className="flex max-w-3xl flex-col gap-2.5">
-                {block.items.map((item) => (
+              <ul
+                key={i}
+                className="flex max-w-3xl flex-col gap-2.5"
+                data-reveal-group
+              >
+                {block.items.map((item, n) => (
                   <li
                     key={item}
                     className="flex gap-3 text-sm leading-relaxed sm:text-base"
+                    data-reveal-child="up"
+                    style={{ "--i": n } as CSSProperties}
                   >
                     <span
                       className="select-none font-mono text-accent"
@@ -218,6 +231,7 @@ export function CaseBlocks({ blocks }: { blocks: CaseBlock[] }) {
               <aside
                 key={i}
                 className="max-w-3xl border-l-2 border-accent-dim pl-4"
+                data-reveal="fade"
               >
                 <p className="font-mono text-xs text-accent">{block.label}</p>
                 <p className="mt-1 text-sm leading-relaxed text-muted">

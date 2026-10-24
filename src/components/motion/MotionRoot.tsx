@@ -45,6 +45,9 @@ export function MotionRoot() {
     );
 
     const vh = window.innerHeight;
+    // Read every position first, then write, so layout is computed once
+    // instead of once per element.
+    const toHide: Element[] = [];
     document.querySelectorAll(SELECTOR).forEach((el) => {
       if (el.classList.contains("is-in")) return;
       if (el.classList.contains("pre")) {
@@ -53,21 +56,26 @@ export function MotionRoot() {
       }
       // Starts on screen (or above it): leave it visible, never hide it.
       if (el.getBoundingClientRect().top < vh) return;
+      toHide.push(el);
+    });
+    for (const el of toHide) {
       el.classList.add("pre");
       io.observe(el);
-    });
+    }
 
     // Reveal everything currently in the viewport without animating.
     const sweep = () => {
       const h = window.innerHeight;
+      const hit: Element[] = [];
       document.querySelectorAll(SELECTOR).forEach((el) => {
         if (!el.classList.contains("pre")) return;
         const r = el.getBoundingClientRect();
-        if (r.top < h && r.bottom > 0) {
-          reveal(el, true);
-          io.unobserve(el);
-        }
+        if (r.top < h && r.bottom > 0) hit.push(el);
       });
+      for (const el of hit) {
+        reveal(el, true);
+        io.unobserve(el);
+      }
     };
 
     const startJump = () => {
@@ -108,17 +116,28 @@ export function MotionRoot() {
     const flushBottom = () => {
       const doc = document.documentElement;
       if (window.innerHeight + window.scrollY < doc.scrollHeight - 4) return;
+      const hit: Element[] = [];
       document.querySelectorAll(SELECTOR).forEach((el) => {
         if (!el.classList.contains("pre")) return;
-        if (el.getBoundingClientRect().top < window.innerHeight) {
-          reveal(el, false);
-          io.unobserve(el);
-        }
+        if (el.getBoundingClientRect().top < window.innerHeight) hit.push(el);
       });
+      for (const el of hit) {
+        reveal(el, false);
+        io.unobserve(el);
+      }
+    };
+    const bar = document.querySelector<HTMLElement>("[data-scroll-progress]");
+    const updateBar = () => {
+      if (!bar) return;
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      bar.style.setProperty("--sp", p.toFixed(4));
     };
     const frame = () => {
       ticking = false;
       updateTimelines();
+      updateBar();
       flushBottom();
     };
     const onScroll = () => {
@@ -127,6 +146,7 @@ export function MotionRoot() {
       window.requestAnimationFrame(frame);
     };
     updateTimelines();
+    updateBar();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
 

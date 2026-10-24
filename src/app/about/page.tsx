@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Nav } from "@/components/Nav";
@@ -42,15 +43,24 @@ export default function AboutPage() {
       <Nav />
       <main className="flex-1">
         <header className="mx-auto flex max-w-4xl flex-col gap-4 px-4 pb-4 pt-14 sm:px-6 sm:pt-20">
-          <p className="font-mono text-sm text-muted">
+          <p
+            className="hero-rise font-mono text-sm text-muted"
+            style={{ "--i": 0 } as CSSProperties}
+          >
             <span className="text-accent">daniel@gta</span>
             <span>:~$</span>
             <span className="ml-2 text-foreground">{aboutHeader.command}</span>
           </p>
-          <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+          <h1
+            className="hero-rise text-4xl font-semibold tracking-tight text-foreground sm:text-5xl"
+            style={{ "--i": 1 } as CSSProperties}
+          >
             {aboutHeader.title}
           </h1>
-          <p className="font-mono text-base text-accent sm:text-lg">
+          <p
+            className="hero-rise font-mono text-base text-accent sm:text-lg"
+            style={{ "--i": 2 } as CSSProperties}
+          >
             {aboutHeader.subtitle}
           </p>
         </header>
@@ -77,10 +87,13 @@ export default function AboutPage() {
 
         <Powerlifting />
 
-        <p className="mx-auto max-w-4xl px-4 pb-16 font-mono text-sm sm:px-6">
+        <p
+          className="mx-auto max-w-4xl px-4 pb-16 font-mono text-sm sm:px-6"
+          data-reveal="up"
+        >
           <Link
             href="/#contact"
-            className="inline-flex min-h-6 items-center gap-1.5 text-accent underline-offset-4 hover:underline"
+            className="sweep inline-flex min-h-6 items-center gap-1.5 text-accent [--sweep-bottom:0.15rem]"
           >
             Like what you see? Let&apos;s talk <span aria-hidden="true">→</span>
           </Link>

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { formatMonthYear } from "@/lib/format";
 import type { LiftResult, Meet } from "@/content/types";
 import { ChipList } from "../ChipList";
@@ -27,10 +28,12 @@ function LiftCell({
   label,
   value,
   change,
+  index,
 }: {
   label: string;
   value: LiftResult;
   change: number | null;
+  index: number;
 }) {
   const isTotal = label === "Total";
   return (
@@ -40,6 +43,8 @@ function LiftCell({
           ? "border-accent-dim"
           : "border-surface-border"
       }`}
+      data-reveal-child="pop"
+      style={{ "--i": index } as CSSProperties}
     >
       <dt className="font-mono text-xs text-muted">{label}</dt>
       <dd className="flex flex-wrap items-baseline gap-x-2">
@@ -136,10 +141,14 @@ export function MeetCard({ meet, previous }: MeetCardProps) {
           <ChipList items={chips} label={`${meet.name} details`} />
 
           {present.length > 0 && (
-            <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {present.map(({ key, label }) => (
+            <dl
+              className="grid grid-cols-2 gap-2 sm:grid-cols-4"
+              data-reveal-group
+            >
+              {present.map(({ key, label }, i) => (
                 <LiftCell
                   key={key}
+                  index={i}
                   label={label}
                   value={meet[key] as LiftResult}
                   change={previous ? delta(meet[key], previous[key]) : null}
@@ -175,7 +184,7 @@ export function MeetCard({ meet, previous }: MeetCardProps) {
                   ? "Instagram post"
                   : "photos on Instagram"
               } (opens in a new tab)`}
-              className="inline-flex min-h-6 items-center gap-1.5 self-start font-mono text-sm text-accent underline-offset-4 hover:underline"
+              className="sweep inline-flex min-h-6 items-center gap-1.5 self-start font-mono text-sm text-accent [--sweep-bottom:0.15rem]"
             >
               {meet.instagramUrl.includes("/p/")
                 ? "Instagram post"

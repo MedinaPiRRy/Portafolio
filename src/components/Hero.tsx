@@ -13,11 +13,13 @@ export function Hero() {
       >
         <span className="text-accent">daniel@gta</span>
         <span className="text-muted">:~$</span>
-        <span className="ml-2 text-foreground">whoami</span>
-        <span
-          className="animate-blink ml-1 inline-block h-4 w-2 translate-y-px bg-accent"
-          aria-hidden="true"
-        />
+        <span className="hero-typed ml-2 inline-flex items-center text-foreground">
+          whoami
+          <span
+            className="animate-blink ml-1 inline-block h-4 w-2 translate-y-px bg-accent"
+            aria-hidden="true"
+          />
+        </span>
       </p>
 
       <div

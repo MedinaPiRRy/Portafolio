@@ -1,14 +1,16 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type YouTubeFacadeProps = {
   id: string;
   title: string;
+  index?: number;
 };
 
-export function YouTubeFacade({ id, title }: YouTubeFacadeProps) {
+export function YouTubeFacade({ id, title, index = 0 }: YouTubeFacadeProps) {
   const [playing, setPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -17,8 +19,12 @@ export function YouTubeFacade({ id, title }: YouTubeFacadeProps) {
   }, [playing]);
 
   return (
-    <figure className="flex flex-col gap-2">
-      <div className="relative aspect-[9/16] w-full overflow-hidden rounded-lg border border-surface-border bg-surface">
+    <figure
+      className="flex flex-col gap-2"
+      data-reveal-child="scale"
+      style={{ "--i": index } as CSSProperties}
+    >
+      <div className="lift relative aspect-[9/16] w-full overflow-hidden rounded-lg border border-surface-border bg-surface [--lift:-3px]">
         {playing ? (
           <iframe
             ref={iframeRef}
@@ -40,7 +46,7 @@ export function YouTubeFacade({ id, title }: YouTubeFacadeProps) {
               alt=""
               fill
               sizes="(min-width: 768px) 210px, 50vw"
-              className="object-cover"
+              className="zoom-img object-cover"
             />
             <span className="absolute inset-0 bg-background/30 transition-colors group-hover:bg-background/10" />
             <span
@@ -59,7 +65,7 @@ export function YouTubeFacade({ id, title }: YouTubeFacadeProps) {
           target="_blank"
           rel="noreferrer"
           aria-label={`${title}: watch on YouTube (opens in a new tab)`}
-          className="inline-flex min-h-6 items-center gap-1.5 self-start font-mono text-xs text-accent underline-offset-4 hover:underline"
+          className="sweep inline-flex min-h-6 items-center gap-1.5 self-start font-mono text-xs text-accent [--sweep-bottom:0.15rem]"
         >
           Watch on YouTube <span aria-hidden="true">↗</span>
         </a>

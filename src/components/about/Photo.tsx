@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { aboutSettings } from "@/content/about";
 import type { AboutPhoto, PhotoAspect } from "@/content/types";
 import { PhotoImage } from "./PhotoImage";
@@ -20,15 +21,24 @@ export function isPhotoVisible(photo: AboutPhoto) {
 type PhotoProps = {
   photo: AboutPhoto;
   sizes: string;
+  index?: number;
+  reveal?: "clip" | "scale" | "fade";
 };
 
-export function Photo({ photo, sizes }: PhotoProps) {
+export function Photo({
+  photo,
+  sizes,
+  index = 0,
+  reveal = "clip",
+}: PhotoProps) {
   if (!isPhotoVisible(photo)) return null;
 
   return (
-    <figure className="flex flex-col gap-2">
+    <figure className="flex flex-col gap-2" data-reveal-group>
       <div
         className={`relative w-full overflow-hidden rounded-lg border border-surface-border bg-surface ${aspectClass[photo.aspect]}`}
+        data-reveal-child={reveal}
+        style={{ "--i": index } as CSSProperties}
       >
         {photo.ready ? (
           <PhotoImage
