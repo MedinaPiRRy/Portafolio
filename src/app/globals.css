@@ -319,3 +319,175 @@ body {
     color: var(--accent);
   }
 }
+
+/* ---- card lift + glow (cards, skill groups) ---- */
+.lift {
+  position: relative;
+  transition:
+    transform var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out);
+}
+.lift::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow:
+    0 0 0 1px var(--accent),
+    0 14px 40px -14px color-mix(in srgb, var(--accent) 50%, transparent);
+  transition: opacity var(--dur-hover) var(--ease-out);
+}
+@media (hover: hover) {
+  .lift:hover,
+  .lift:focus-within {
+    transform: translateY(var(--lift, -4px));
+  }
+  .lift:hover::after,
+  .lift:focus-within::after {
+    opacity: 1;
+  }
+}
+@media (hover: none) {
+  .lift:active {
+    transform: scale(0.99);
+  }
+  .lift:active::after {
+    opacity: 1;
+  }
+}
+
+/* ---- timeline / education entry highlight ---- */
+.entry {
+  position: relative;
+  isolation: isolate;
+}
+.entry::before {
+  content: "";
+  position: absolute;
+  inset: -0.5rem -0.75rem;
+  z-index: -1;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 450ms var(--ease-out);
+}
+.entry::after {
+  content: "";
+  position: absolute;
+  left: -0.75rem;
+  top: -0.5rem;
+  bottom: -0.5rem;
+  width: 2px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 350ms var(--ease-out);
+}
+@media (hover: hover) {
+  .entry:hover::before,
+  .entry:hover::after,
+  .entry:focus-within::before,
+  .entry:focus-within::after {
+    transform: none;
+  }
+}
+@media (hover: none) {
+  .entry:active::before,
+  .entry:active::after {
+    transform: none;
+  }
+}
+
+/* bullets inside a hovered entry get their own highlight sweep */
+.hl-item {
+  position: relative;
+  isolation: isolate;
+}
+.hl-item::before {
+  content: "";
+  position: absolute;
+  inset: -2px -8px;
+  z-index: -1;
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 450ms var(--ease-out) calc(min(var(--i, 0), 8) * 45ms);
+}
+@media (hover: hover) {
+  .entry:hover .hl-item::before,
+  .entry:focus-within .hl-item::before {
+    transform: none;
+  }
+}
+
+/* timeline dot pulses while its entry is hovered */
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 9999px;
+  border: 1px solid var(--accent);
+  opacity: 0;
+}
+@keyframes dot-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+@media (hover: hover) {
+  .entry:hover .dot::after,
+  .entry:focus-within .dot::after {
+    animation: dot-pulse 1.2s var(--ease-out) infinite;
+  }
+}
+
+/* ---- row highlight sweep (contact rows) ---- */
+.row-sweep {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.row-sweep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms var(--ease-out);
+}
+@media (hover: hover) {
+  .row-sweep:hover::before,
+  .row-sweep:focus-within::before {
+    transform: none;
+  }
+}
+@media (hover: none) {
+  .row-sweep:active::before {
+    transform: none;
+  }
+}
+
+/* image zoom inside a card frame */
+.zoom-frame {
+  overflow: hidden;
+}
+.zoom-img {
+  transition: transform 700ms var(--ease-out);
+}
+@media (hover: hover) {
+  .lift:hover .zoom-img,
+  .lift:focus-within .zoom-img {
+    transform: scale(1.04);
+  }
+}

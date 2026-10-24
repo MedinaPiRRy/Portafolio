@@ -20,7 +20,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={`mx-auto max-w-4xl px-4 sm:px-6 ${
+      className={`mx-auto max-w-4xl overflow-x-clip px-4 sm:px-6 ${
         compact ? "py-8 sm:py-10" : "py-12 sm:py-16"
       }`}
     >

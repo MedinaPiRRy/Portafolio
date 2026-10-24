@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { site } from "@/content/site";
 import { Section } from "./Section";
 
@@ -23,15 +24,23 @@ export function Contact() {
   return (
     <Section id="contact" index="05" title="Contact">
       <div className="flex flex-col gap-8">
-        <p className="max-w-2xl text-balance text-lg leading-relaxed text-foreground">
+        <p
+          className="max-w-2xl text-balance text-lg leading-relaxed text-foreground"
+          data-reveal="up"
+        >
           {site.openTo}
         </p>
 
-        <dl className="flex flex-col gap-px overflow-hidden rounded-lg border border-surface-border bg-surface-border">
-          {rows.map((row) => (
+        <dl
+          className="flex flex-col gap-px overflow-hidden rounded-lg border border-surface-border bg-surface-border"
+          data-reveal-group
+        >
+          {rows.map((row, i) => (
             <div
               key={row.label}
-              className="flex flex-col gap-1 bg-surface px-4 py-3.5 sm:flex-row sm:items-center sm:gap-6 sm:px-5"
+              className="row-sweep flex flex-col gap-1 bg-surface px-4 py-3.5 sm:flex-row sm:items-center sm:gap-6 sm:px-5"
+              data-reveal-child="up"
+              style={{ "--i": i } as CSSProperties}
             >
               <dt className="font-mono text-xs text-muted sm:w-24">
                 {row.label}
@@ -43,7 +52,7 @@ export function Contact() {
                     {...(row.href.startsWith("http")
                       ? { target: "_blank", rel: "noreferrer" }
                       : {})}
-                    className="inline-flex min-h-6 items-center text-accent underline-offset-4 hover:underline"
+                    className="sweep inline-flex min-h-6 items-center text-accent [--sweep-bottom:0.2rem]"
                   >
                     {row.text}
                   </a>

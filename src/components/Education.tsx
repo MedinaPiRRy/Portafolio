@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { certifications, education } from "@/content/education";
 import { BulletList } from "./BulletList";
 import { Section } from "./Section";
@@ -9,7 +10,8 @@ export function Education() {
         {education.map((entry) => (
           <article
             key={`${entry.org}-${entry.start}`}
-            className="flex flex-col gap-3"
+            className="entry flex flex-col gap-3"
+            data-reveal="up"
           >
             <div className="flex flex-col gap-1">
               <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
@@ -29,13 +31,15 @@ export function Education() {
           </article>
         ))}
 
-        <div className="flex flex-col gap-3">
+        <div className="entry flex flex-col gap-3" data-reveal="up">
           <h3 className="font-mono text-sm text-accent">Certifications</h3>
-          <ul className="flex flex-col gap-2">
-            {certifications.map((cert) => (
+          <ul className="flex flex-col gap-2" data-reveal-group>
+            {certifications.map((cert, i) => (
               <li
                 key={cert.name}
-                className="flex gap-3 text-sm leading-relaxed sm:text-base"
+                className="hl-item flex gap-3 text-sm leading-relaxed sm:text-base"
+                data-reveal-child="up"
+                style={{ "--i": i } as CSSProperties}
               >
                 <span
                   className="select-none font-mono text-accent"

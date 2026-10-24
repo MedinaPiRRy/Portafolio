@@ -103,10 +103,28 @@ export function MotionRoot() {
         line.style.setProperty("--p", p.toFixed(3));
       }
     };
+    // At the very bottom of the page, elements inside the last 8% of the
+    // viewport can never reach the observer's shrunk root, so reveal them here.
+    const flushBottom = () => {
+      const doc = document.documentElement;
+      if (window.innerHeight + window.scrollY < doc.scrollHeight - 4) return;
+      document.querySelectorAll(SELECTOR).forEach((el) => {
+        if (!el.classList.contains("pre")) return;
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          reveal(el, false);
+          io.unobserve(el);
+        }
+      });
+    };
+    const frame = () => {
+      ticking = false;
+      updateTimelines();
+      flushBottom();
+    };
     const onScroll = () => {
-      if (ticking || timelines.length === 0) return;
+      if (ticking) return;
       ticking = true;
-      window.requestAnimationFrame(updateTimelines);
+      window.requestAnimationFrame(frame);
     };
     updateTimelines();
     window.addEventListener("scroll", onScroll, { passive: true });

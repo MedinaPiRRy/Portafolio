@@ -16,7 +16,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <article
       aria-labelledby={`project-${project.slug}`}
-      className="group rounded-lg border border-surface-border bg-surface transition-colors hover:border-accent-dim"
+      className="lift rounded-lg border border-surface-border bg-surface"
+      data-reveal={index % 2 === 0 ? "left" : "right"}
     >
       <div className="flex items-center justify-between gap-4 border-b border-surface-border px-4 py-2.5 font-mono text-xs text-muted sm:px-5">
         <span className="whitespace-nowrap">
@@ -34,14 +35,21 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       </div>
 
       {project.image && (
-        <Image
-          src={project.image.src}
-          alt={project.image.alt}
-          width={project.image.width}
-          height={project.image.height}
-          sizes="(min-width: 896px) 896px, 100vw"
-          className="aspect-[16/9] w-full border-b border-surface-border object-cover object-top"
-        />
+        <div
+          className="zoom-frame aspect-[16/9] w-full border-b border-surface-border"
+          data-reveal-group
+        >
+          <div className="h-full w-full" data-reveal-child="clip">
+            <Image
+              src={project.image.src}
+              alt={project.image.alt}
+              width={project.image.width}
+              height={project.image.height}
+              sizes="(min-width: 896px) 896px, 100vw"
+              className="zoom-img h-full w-full object-cover object-top"
+            />
+          </div>
+        </div>
       )}
 
       <div className="flex flex-col gap-5 px-4 py-5 sm:px-6 sm:py-6">
@@ -71,7 +79,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               href={`/projects/${project.slug}`}
               prefetch={false}
               aria-label={`Learn More about ${project.name}`}
-              className="inline-flex min-h-9 items-center gap-1 rounded-md border border-accent bg-accent px-4 font-medium text-background transition-colors hover:border-accent-dim hover:bg-accent-dim"
+              className="btn-sweep inline-flex min-h-9 items-center gap-1 rounded-md border border-accent bg-accent px-4 font-medium text-background"
             >
               Learn More <span aria-hidden="true">→</span>
             </Link>
@@ -83,7 +91,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               target="_blank"
               rel="noreferrer"
               aria-label={`${project.name}: ${link.label} (opens in a new tab)`}
-              className="inline-flex min-h-6 items-center gap-1.5 text-accent underline-offset-4 hover:underline"
+              className="btn-sweep -mx-2 inline-flex min-h-6 items-center gap-1.5 rounded px-2 text-accent [--fill-text:var(--accent)] [--fill:color-mix(in_srgb,var(--accent)_16%,transparent)]"
             >
               {link.label} <span aria-hidden="true">↗</span>
             </a>
